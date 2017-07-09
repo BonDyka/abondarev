@@ -11,9 +11,18 @@ public class Calculate {
 	 * is represent three times through spaces.
 	 *
 	 * @param value a string for changing.
-	 * @return String represent value three times throug spaces.
+	 * @return String represent value three times through spaces.
 	 */
 	public String echo(String value) {
 		return String.format("%s %s %s", value,  value, value);
+	}
+
+	/**
+	 * Enter point for start executing the program.
+	 *
+	 * @param args String array with parameters(Can without args).
+	 */
+	public static void main(String[] args) {
+		System.out.println("Hello, world!");
 	}
 }
