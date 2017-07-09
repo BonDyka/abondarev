@@ -1,7 +1,7 @@
 package ru.job4j;
 /**
  * Class Calculate. The solution task from chapter_001 lesson 1(JVM. Byte code).
- * 
+ *
  * @author aondarev
  * @since 08.07.2017
  */
