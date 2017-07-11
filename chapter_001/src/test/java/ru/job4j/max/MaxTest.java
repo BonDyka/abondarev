@@ -38,4 +38,19 @@ public class MaxTest {
 		int expected = second;
 		assertThat(result, is(expected));
 	}
+
+	/**
+	 * The method tests max() method with three parameter when third parameter
+	 * bigger than first and second.
+	 */
+	@Test
+	public void whenThirdBiggerThanOtherThenReturnThird() {
+		Max max = new Max();
+		int first = 3;
+		int second = 5;
+		int third = 7;
+		int result = max.max(first, second, third);
+		int expected = third;
+		assertThat(result, is(expected));
+	}
 }

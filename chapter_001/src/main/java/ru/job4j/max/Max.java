@@ -17,4 +17,18 @@ public class Max {
 	public int max(int first, int second) {
 		return (first > second) ? first : second;
 	}
+
+	/**
+	 * The method calculates maximum of three numbers.
+	 *
+	 * @param first is the first argument.
+	 * @param second is the second argument.
+	 * @param third is the second argument.
+	 * @return max of three numbers.
+	 */
+	public int max(int first, int second, int third) {
+		int maxFirstSecond = this.max(first, second);
+		int result = this.max(maxFirstSecond, third);
+		return result;
+	}
 }
