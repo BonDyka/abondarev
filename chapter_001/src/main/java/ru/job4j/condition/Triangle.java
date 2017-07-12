@@ -1,6 +1,8 @@
 package ru.job4j.condition;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
+import static java.lang.Math.pow;
 
 /**
  * The class describes a triangle in two-dimension space.
@@ -43,18 +45,47 @@ public class Triangle {
 	}
 
 	/**
-	 * The method calculates the triangle area.
+	 * The method calculates the triangle area. If it is not exist return -1D.
 	 *
 	 * @return value of the triangle area.
 	 */
 	public double area() {
-		double aX = (double) this.a.getX();
-		double aY = (double) this.a.getY();
-		double bX = (double) this.b.getX();
-		double bY = (double) this.b.getY();
-		double cX = (double) this.c.getX();
-		double cY = (double) this.c.getY();
-		double result = 0.5 * abs((aX - cX) * (bY - cY) - (bX - cX) * (aY - cY));
-		return result;
+		if (isExist()) {
+			double aX = (double) this.a.getX();
+			double aY = (double) this.a.getY();
+			double bX = (double) this.b.getX();
+			double bY = (double) this.b.getY();
+			double cX = (double) this.c.getX();
+			double cY = (double) this.c.getY();
+			return 0.5 * abs((aX - cX) * (bY - cY) - (bX - cX) * (aY - cY));
+		} else {
+			return -1D;
+		}
+	}
+
+	/**
+	 *	The method determines is exist the triangle or not.
+	 *
+	 * @return <i>true</i> if the triangle is exist and <i>false</i> otherwise.
+	 */
+	public boolean isExist() {
+		double sideAB = this.getLongSide(a, b);
+		double sideAC = this.getLongSide(a, c);
+		double sideBC = this.getLongSide(b, c);
+		return ((sideAC + sideAB == sideBC)
+				|| (sideAB + sideBC == sideAC)
+				|| (sideAC + sideBC == sideAB)) ? false : true;
+	}
+
+	/**
+	 * The method calculate the long side pointed two point.
+	 *
+	 * @param start is the start point of the side.
+	 * @param end is the end point of the side.
+	 * @return value of the long side.
+	 */
+	public double getLongSide(Point start, Point end) {
+		return sqrt(pow((double) (end.getX() - start.getX()), 2)
+				+ pow((double) (end.getY() - start.getY()), 2));
 	}
 }
