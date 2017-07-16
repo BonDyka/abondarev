@@ -16,6 +16,8 @@
 
 	<modules>
 		<module>chapter_001</module>
+
+		<module>test_tasks</module>
 	</modules>
 
 	<dependencies>
