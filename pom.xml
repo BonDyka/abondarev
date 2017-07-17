@@ -16,6 +16,7 @@
 
 	<modules>
 		<module>chapter_001</module>
+		<module>chapter_002</module>
 
 		<module>test_tasks</module>
 	</modules>
@@ -60,7 +61,7 @@
 							<encoding>UTF-8</encoding>
 							<consoleOutput>true</consoleOutput>
 							<failsOnError>true</failsOnError>
-							<includeTestSourceDurectory>true</includeTestSourceDurectory>
+							<includeTestSourceDirectory>true</includeTestSourceDirectory>
 						</configuration>
 						<goals>
 							<goal>check</goal>
