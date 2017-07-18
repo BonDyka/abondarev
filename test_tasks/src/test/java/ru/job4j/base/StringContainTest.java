@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 public class StringContainTest {
 
 	/**
-	 * The method tests contains() method when the origin string contains substring
+	 * The method tests contains() method when the origin string contains substring.
 	 */
 	@Test
 	public void whenOriginContainsSubThenTrue() {

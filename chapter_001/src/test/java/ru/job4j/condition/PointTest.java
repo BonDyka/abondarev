@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 public class PointTest {
 
 	/**
-	 * The method tests method getX() of point class
+	 * The method tests method getX() of point class.
 	 */
 	@Test
 	public void whenGetXThenReturnX() {
@@ -30,7 +30,7 @@ public class PointTest {
 	}
 
 	/**
-	 * The method tests method getY() of point class
+	 * The method tests method getY() of point class.
 	 */
 	@Test
 	public void whenGetYThenReturnY() {

@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * The class for testing Calculate class methods.
- * 
+ *
  * @author abondarev
  * @since 09.07.2017
  */
