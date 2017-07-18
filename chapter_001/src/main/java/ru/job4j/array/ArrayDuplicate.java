@@ -24,7 +24,7 @@ public class ArrayDuplicate {
 			String origin = array[i];
 			for (int j = i + 1; j < array.length - counter; j++) {
 				if (array[j].equals(origin)) {
-					System.arraycopy(array, j + 1, array, j, array.length - j - 1);
+					array[j] = array[array.length - counter - 1];
 					counter++;
 					array[array.length - 1] = origin;
 				}
