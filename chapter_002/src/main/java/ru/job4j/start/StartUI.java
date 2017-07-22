@@ -47,7 +47,7 @@ public class StartUI {
 			if (this.checkAction(action)) {
 				this.executeAction(action, tracker);
 			} else {
-				System.out.println("Bad input.")
+				System.out.println("Bad input.");
 			}
 		}
 	}
