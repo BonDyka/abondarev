@@ -14,6 +14,11 @@ public class StartUI {
 	private Input input;
 
 	/**
+	 *
+	 */
+	private Tracker tracker;
+
+	/**
 	 * The condition for exit from application.
 	 */
 	private boolean exit = false;
@@ -22,9 +27,11 @@ public class StartUI {
 	 * The constructor.
 	 *
 	 * @param input is an instance of input system.
+	 * @param tracker is container under that execute action.
 	 */
-	public StartUI(Input input) {
+	public StartUI(Input input, Tracker tracker) {
 		this.input = input;
+		this.tracker = tracker;
 	}
 
 	/**
@@ -33,19 +40,18 @@ public class StartUI {
 	 * @param args list of arguments.
 	 */
 	public static void main(String[] args) {
-		new StartUI(new ConsoleInput()).init();
+		new StartUI(new ConsoleInput(), new Tracker()).init();
 	}
 
 	/**
 	 * The methos initialaizes main loop of application.
 	 */
 	public void init() {
-		Tracker tracker = new Tracker();
 		while (!this.exit) {
 			this.showMenu();
 			String action = this.input.ask("Enter number from menu: ");
 			if (this.checkAction(action)) {
-				this.executeAction(action, tracker);
+				this.executeAction(action);
 			} else {
 				System.out.println("Bad input.");
 			}
@@ -94,21 +100,20 @@ public class StartUI {
 	 * The method executes an action from menu.
 	 *
 	 * @param action is actions choose an user.
-	 * @param tracker is instance of traker.
 	 */
-	private void executeAction(String action, Tracker tracker) {
+	private void executeAction(String action) {
 		switch (action) {
-			case "1": this.addAction(tracker);
+			case "1": this.addAction();
 					break;
-			case "2": this.showAllAction(tracker);
+			case "2": this.showAllAction();
 					break;
-			case "3": this.editAction(tracker);
+			case "3": this.editAction();
 					break;
-			case "4": this.deleteAction(tracker);
+			case "4": this.deleteAction();
 					break;
-			case "5": this.findByIdAction(tracker);
+			case "5": this.findByIdAction();
 					break;
-			case "6": this.findByNameAction(tracker);
+			case "6": this.findByNameAction();
 					break;
 			case "7": this.exitAction();
 					break;
@@ -119,11 +124,9 @@ public class StartUI {
 
 	/**
 	 * The method executes add action.
-	 *
-	 * @param tracker instance of tracker.
 	 */
-	private void addAction(Tracker tracker) {
-		Item item = tracker.add(
+	private void addAction() {
+		Item item = this.tracker.add(
 							new Item(this.input.ask("Please enter name of item: "),
 									 this.input.ask("Please enter description of item: "),
 									 System.currentTimeMillis()));
@@ -133,18 +136,16 @@ public class StartUI {
 
 	/**
 	 * The method executes edit action.
-	 *
-	 * @param tracker instance of tracker.
 	 */
-	private void editAction(Tracker tracker) {
+	private void editAction() {
 		String id = this.input.ask("Please enter yours item Id: ");
-		Item existed = tracker.findById(id);
+		Item existed = this.tracker.findById(id);
 		if (existed != null) {
 			Item updated = new Item(this.input.ask("Please enter name of item: "),
 									this.input.ask("Please enter description of item: "),
 									existed.getCreate());
 			updated.setId(existed.getId());
-			tracker.update(updated);
+			this.tracker.update(updated);
 			System.out.println("Operation complite.");
 		} else {
 			System.out.println("Operation failure! Invalid id!");
@@ -153,25 +154,21 @@ public class StartUI {
 
 	/**
 	 * The method executes delete action.
-	 *
-	 * @param tracker instance of tracker.
 	 */
-	public void deleteAction(Tracker tracker) {
+	public void deleteAction() {
 		String id = this.input.ask("Please enter yours item Id: ");
-		Item item = tracker.findById(id);
+		Item item = this.tracker.findById(id);
 		if (item != null) {
-			tracker.delete(item);
+			this.tracker.delete(item);
 		}
 		System.out.println("Operation complite.");
 	}
 
 	/**
 	 * The method executes show all action.
-	 *
-	 * @param tracker instance of tracker.
 	 */
-	public void showAllAction(Tracker tracker) {
-		Item[] items = tracker.findAll();
+	public void showAllAction() {
+		Item[] items = this.tracker.findAll();
 		if (items.length != 0) {
 			for (Item item : items) {
 					this.showItem(item);
@@ -184,12 +181,10 @@ public class StartUI {
 
 	/**
 	 * The method executes find by id action.
-	 *
-	 * @param tracker instance of tracker.
 	 */
-	public void findByIdAction(Tracker tracker) {
+	public void findByIdAction() {
 		String id = this.input.ask("Please enter items Id: ");
-		Item item = tracker.findById(id);
+		Item item = this.tracker.findById(id);
 		if (item != null) {
 			this.showItem(item);
 		} else {
@@ -199,12 +194,10 @@ public class StartUI {
 
 	/**
 	 * The method executes show all action.
-	 *
-	 * @param tracker instance of tracker.
 	 */
-	public void findByNameAction(Tracker tracker) {
+	public void findByNameAction() {
 		String name = this.input.ask("Please enter name of item: ");
-		Item[] items = tracker.findByName(name);
+		Item[] items = this.tracker.findByName(name);
 		if (items.length != 0) {
 			for (Item item : items) {
 					this.showItem(item);
