@@ -9,6 +9,42 @@ import java.text.DateFormat;
 public class StartUI {
 
 	/**
+	 * The first item of menu.
+	 */
+	private static final String FIRST = "1";
+
+	/**
+	 * The second item of menu.
+	 */
+	private static final String SECOND = "2";
+
+	/**
+	 * The third item of menu.
+	 */
+	private static final String THIRD = "3";
+
+	/**
+	 * The fourth item of menu.
+	 */
+	private static final String FOURTH = "4";
+
+	/**
+	 * The fifth item of menu.
+	 */
+	private static final String FIFTH = "5";
+
+
+	/**
+	 * The sixth item of menu.
+	 */
+	private static final String SIXTH = "6";
+
+	/**
+	 * The seventh item of menu.
+	 */
+	private static final String SEVENTS = "7";
+
+	/**
 	 * The instance of input system.
 	 */
 	private Input input;
@@ -103,19 +139,19 @@ public class StartUI {
 	 */
 	private void executeAction(String action) {
 		switch (action) {
-			case "1": this.addAction();
+			case FIRST : this.addAction();
 					break;
-			case "2": this.showAllAction();
+			case SECOND : this.showAllAction();
 					break;
-			case "3": this.editAction();
+			case THIRD : this.editAction();
 					break;
-			case "4": this.deleteAction();
+			case FOURTH : this.deleteAction();
 					break;
-			case "5": this.findByIdAction();
+			case FIFTH : this.findByIdAction();
 					break;
-			case "6": this.findByNameAction();
+			case SIXTH : this.findByNameAction();
 					break;
-			case "7": this.exitAction();
+			case SEVENTS : this.exitAction();
 					break;
 			default:
 				break;
