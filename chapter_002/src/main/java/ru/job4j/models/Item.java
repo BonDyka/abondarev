@@ -1,5 +1,6 @@
 package ru.job4j.models;
 
+import java.text.DateFormat;
 import java.util.Arrays;
 
 /**
@@ -124,6 +125,21 @@ public class Item {
 			pointer++;
 			result = true;
 		}
+		return result;
+	}
+
+	/**
+	 * The method return a string that represents the item.
+	 *
+	 * @return a string that represents the item
+	 */
+	public String toString() {
+		String lineSeparator = System.getProperty("line.separator");
+		String result = String.format("Item id %s%sName: %s%sDescription: %s%sCreated: %s%s%s",
+									  this.id, lineSeparator, this.name, lineSeparator,
+									  this.desc, lineSeparator,
+									  DateFormat.getDateInstance().format(this.create),
+									  lineSeparator, lineSeparator);
 		return result;
 	}
 }

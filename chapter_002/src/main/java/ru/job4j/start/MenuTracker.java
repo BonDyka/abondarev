@@ -1,6 +1,5 @@
 package ru.job4j.start;
 
-import java.text.DateFormat;
 import ru.job4j.models.Item;
 
 /**
@@ -148,7 +147,7 @@ public class MenuTracker {
 			Item[] items = tracker.findAll();
 			if (items.length != 0) {
 				for (Item item : items) {
-						this.showItem(item);
+					System.out.println(item);
 				}
 			} else {
 				System.out.println("List is empty");
@@ -163,21 +162,6 @@ public class MenuTracker {
 		 */
 		public String info() {
 			return "Show all items.";
-		}
-
-		/**
-		 * The method output into console data of item.
-		 *
-		 * @param item is an inctance of item.
-		 */
-		public void showItem(Item item) {
-			String lineSeparator = System.getProperty("line.separator");
-			String result = String.format("Item id %s%sName: %s%sDescription: %s%sCreated: %s%s%s",
-										  item.getId(), lineSeparator, item.getName(), lineSeparator,
-										  item.getDesc(), lineSeparator,
-										  DateFormat.getDateInstance().format(item.getCreate()),
-										  lineSeparator, lineSeparator);
-			System.out.println(result);
 		}
 	}
 
@@ -289,7 +273,7 @@ public class MenuTracker {
 			String id = input.ask("Please enter items Id: ");
 			Item item = tracker.findById(id);
 			if (item != null) {
-				this.showItem(item);
+				System.out.println(item);
 			} else {
 				System.out.println("Not found");
 			}
@@ -302,21 +286,6 @@ public class MenuTracker {
 		 */
 		public String info() {
 			return "Find the item by id.";
-		}
-
-		/**
-		 * The method output into console data of item.
-		 *
-		 * @param item is an inctance of item.
-		 */
-		public void showItem(Item item) {
-			String lineSeparator = System.getProperty("line.separator");
-			String result = String.format("Item id %s%sName: %s%sDescription: %s%sCreated: %s%s%s",
-										  item.getId(), lineSeparator, item.getName(), lineSeparator,
-										  item.getDesc(), lineSeparator,
-										  DateFormat.getDateInstance().format(item.getCreate()),
-										  lineSeparator, lineSeparator);
-			System.out.println(result);
 		}
 	}
 
@@ -380,7 +349,7 @@ class FindByNameAction implements UserAction {
 		Item[] items = tracker.findByName(name);
 		if (items.length != 0) {
 			for (Item item : items) {
-					this.showItem(item);
+				System.out.println(item);
 			}
 		} else {
 			System.out.println("Not found");
@@ -395,20 +364,5 @@ class FindByNameAction implements UserAction {
 	 */
 	public String info() {
 		return "Find items by name.";
-	}
-
-	/**
-	 * The method output into console data of item.
-	 *
-	 * @param item is an inctance of item.
-	 */
-	public void showItem(Item item) {
-		String lineSeparator = System.getProperty("line.separator");
-		String result = String.format("Item id %s%sName: %s%sDescription: %s%sCreated: %s%s%s",
-									  item.getId(), lineSeparator, item.getName(), lineSeparator,
-									  item.getDesc(), lineSeparator,
-									  DateFormat.getDateInstance().format(item.getCreate()),
-									  lineSeparator, lineSeparator);
-		System.out.println(result);
 	}
 }
