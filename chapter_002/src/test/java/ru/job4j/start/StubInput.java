@@ -37,4 +37,16 @@ public class StubInput implements Input {
 	public String ask(String question) {
 		return answers[position++];
 	}
+
+	/**
+	 * <@inheritedDoc>.
+	 *
+	 * @param question is string for output for user.
+	 * @param from is start limit of range.
+	 * @param to is end limit of range.
+	 * @return an integer from user input.
+	 */
+	public int ask(String question, int from, int to) {
+		return Integer.valueOf(this.ask(question));
+	}
 }

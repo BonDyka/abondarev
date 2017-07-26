@@ -37,7 +37,7 @@ public class StartUI {
 	 * @param args list of arguments.
 	 */
 	public static void main(String[] args) {
-		new StartUI(new ConsoleInput(), new Tracker()).init();
+		new StartUI(new ValidateInput(), new Tracker()).init();
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class StartUI {
 		while (key != EXIT) {
 			menu.show();
 			System.out.println("log1");
-			key = Integer.valueOf(this.input.ask("Select: "));
+			key = this.input.ask("Select: ", MenuTracker.FIRST,	MenuTracker.SIZE);
 			menu.select(key);
 		}
 	}

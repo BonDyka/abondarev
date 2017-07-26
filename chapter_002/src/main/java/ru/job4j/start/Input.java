@@ -16,4 +16,14 @@ public interface Input {
 	 * @return a string thet represent the input data.
 	 */
 	String ask(String question);
+
+	/**
+	 * The method for asking an integer in range from user.
+	 *
+	 * @param question is string for output for user.
+	 * @param from is start limit of range.
+	 * @param to is end limit of range.
+	 * @return an integer from user input.
+	 */
+	int ask(String question, int from, int to);
 }

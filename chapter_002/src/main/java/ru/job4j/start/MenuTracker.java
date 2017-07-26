@@ -11,9 +11,19 @@ import ru.job4j.models.Item;
 public class MenuTracker {
 
 	/**
+	 * The variable contains value of menu size.
+	 */
+	public static final int SIZE = 7;
+
+	/**
+	 * The variable contains number of first item menu.
+	 */
+	public static final int FIRST = 1;
+
+	/**
 	 * The list of all action in menu.
 	 */
-	private UserAction[] actions = new UserAction[7];
+	private UserAction[] actions = new UserAction[SIZE];
 
 	/**
 	 * The input system instance.

@@ -16,7 +16,7 @@ public class ConsoleInput implements Input {
 	private Scanner scanner = new Scanner(System.in);
 
 	/**
-	 * <@inheriteDoc>.
+	 * <@inheritedDoc>.
 	 *
 	 * @param question is a string for output for user.
 	 * @return a string that represent input to console from user.
@@ -24,5 +24,22 @@ public class ConsoleInput implements Input {
 	public String ask(String question) {
 		System.out.print(question);
 		return scanner.nextLine();
+	}
+
+	/**
+	 * <@inheritedDoc>.
+	 *
+	 * @param question is string for output for user.
+	 * @param from is start limit of range.
+	 * @param to is end limit of range.
+	 * @return an integer from user input.
+	 */
+	public int ask(String question, int from, int to) {
+		int value = Integer.valueOf(this.ask(question));
+		if (value >= from && value <= to) {
+			return value;
+		} else {
+			throw new MenuOutException("Out of range.");
+		}
 	}
 }
