@@ -50,13 +50,13 @@ public class MenuTracker {
 	 * The method fill actions of the menu.
 	 */
 	public void fillActions() {
-		this.actions[0] = this.new AddAction();
-		this.actions[1] = new MenuTracker.ShowAllAction();
-		this.actions[2] = this.new EditAction();
-		this.actions[3] = this.new DeleteAction();
-		this.actions[4] = this.new FindByIdAction();
-		this.actions[5] = new FindByNameAction();
-		this.actions[6] = this.new ExitAction();
+		this.actions[0] = this.new AddAction(1, "Add an item.");
+		this.actions[1] = new MenuTracker.ShowAllAction(2, "Show all items.");
+		this.actions[2] = this.new EditAction(3, "Edit an item.");
+		this.actions[3] = this.new DeleteAction(4, "Delete an action.");
+		this.actions[4] = this.new FindByIdAction(5, "Find the item by Id.");
+		this.actions[5] = new FindByNameAction(6, "Find items by name.");
+		this.actions[6] = this.new ExitAction(7, "Exit.");
 	}
 
 	/**
@@ -96,15 +96,16 @@ public class MenuTracker {
 	/**
 	 * The class implements UserAction for addition an item.
 	 */
-	private class AddAction implements UserAction {
+	private class AddAction extends BaseAction {
 
 		/**
-		 * <@inheritedDoc>.
+		 * The constructor takes as parameter key and name of action.
 		 *
-		 * @return the key of the action.
+		 * @param key of action.
+		 * @param name of action.
 		 */
-		public int key() {
-			return 1;
+		AddAction(int key, String name) {
+			super(key, name);
 		}
 
 		/**
@@ -122,29 +123,21 @@ public class MenuTracker {
 
 			System.out.println(String.format("Id of your item: %s", item.getId()));
 		}
-
-		/**
-		 * <@inheritedDoc>.
-		 *
-		 * @return a string that describes the action.
-		 */
-		public String info() {
-			return "Add an item.";
-		}
 	}
 
 	/**
 	 * The class implements UserAction for show all items.
 	 */
-	private class ShowAllAction implements UserAction {
+	private class ShowAllAction extends BaseAction {
 
 		/**
-		 * <@inheritedDoc>.
+		 * The constructor takes as parameter key and name of action.
 		 *
-		 * @return the key of the action.
+		 * @param key of action.
+		 * @param name of action.
 		 */
-		public int key() {
-			return 2;
+		ShowAllAction(int key, String name) {
+			super(key, name);
 		}
 
 		/**
@@ -164,29 +157,21 @@ public class MenuTracker {
 			}
 			System.out.println("Done.");
 		}
-
-		/**
-		 * <@inheritedDoc>.
-		 *
-		 * @return a string that describes the action.
-		 */
-		public String info() {
-			return "Show all items.";
-		}
 	}
 
 	/**
 	 * The class implements UserAction for updating an item.
 	 */
-	private class EditAction implements UserAction {
+	private class EditAction extends BaseAction {
 
 		/**
-		 * <@inheritedDoc>.
+		 * The constructor takes as parameter key and name of action.
 		 *
-		 * @return the key of the action.
+		 * @param key of action.
+		 * @param name of action.
 		 */
-		public int key() {
-			return 3;
+		EditAction(int key, String name) {
+			super(key, name);
 		}
 
 		/**
@@ -209,29 +194,21 @@ public class MenuTracker {
 				System.out.println("Operation failure! Invalid id!");
 			}
 		}
-
-		/**
-		 * <@inheritedDoc>.
-		 *
-		 * @return a string that describes the action.
-		 */
-		public String info() {
-			return "Edit an items.";
-		}
 	}
 
 	/**
 	 * The class implements UserAction for removing an item.
 	 */
-	private class DeleteAction implements UserAction {
+	private class DeleteAction extends BaseAction {
 
 		/**
-		 * <@inheritedDoc>.
+		 * The constructor takes as parameter key and name of action.
 		 *
-		 * @return the key of the action.
+		 * @param key of action.
+		 * @param name of action.
 		 */
-		public int key() {
-			return 4;
+		DeleteAction(int key, String name) {
+			super(key, name);
 		}
 
 		/**
@@ -248,29 +225,21 @@ public class MenuTracker {
 			}
 			System.out.println("Operation complite.");
 		}
-
-		/**
-		 * <@inheritedDoc>.
-		 *
-		 * @return a string that describes the action.
-		 */
-		public String info() {
-			return "Delete an item.";
-		}
 	}
 
 	/**
 	 * The class implements UserAction for searching the item by id.
 	 */
-	private class FindByIdAction implements UserAction {
+	private class FindByIdAction extends BaseAction {
 
 		/**
-		 * <@inheritedDoc>.
+		 * The constructor takes as parameter key and name of action.
 		 *
-		 * @return the key of the action.
+		 * @param key of action.
+		 * @param name of action.
 		 */
-		public int key() {
-			return 5;
+		FindByIdAction(int key, String name) {
+			super(key, name);
 		}
 
 		/**
@@ -288,29 +257,21 @@ public class MenuTracker {
 				System.out.println("Not found");
 			}
 		}
-
-		/**
-		 * <@inheritedDoc>.
-		 *
-		 * @return a string that describes the action.
-		 */
-		public String info() {
-			return "Find the item by id.";
-		}
 	}
 
 	/**
 	 * The class implements UserAction for exit.
 	 */
-	private class ExitAction implements UserAction {
+	private class ExitAction extends BaseAction {
 
 		/**
-		 * <@inheritedDoc>.
+		 * The constructor takes as parameter key and name of action.
 		 *
-		 * @return the key of the action.
+		 * @param key of action.
+		 * @param name of action.
 		 */
-		public int key() {
-			return 7;
+		ExitAction(int key, String name) {
+			super(key, name);
 		}
 
 		/**
@@ -322,30 +283,22 @@ public class MenuTracker {
 		public void execute(Input input, Tracker tracker) {
 			System.out.println("Good bye.");
 		}
-
-		/**
-		 * <@inheritedDoc>.
-		 *
-		 * @return a string that describes the action.
-		 */
-		public String info() {
-			return "Exit.";
-		}
 	}
 }
 
 /**
  * The class implements UserAction for searching items by name.
  */
-class FindByNameAction implements UserAction {
+class FindByNameAction extends BaseAction {
 
 	/**
-	 * <@inheritedDoc>.
+	 * The constructor takes as parameter key and name of action.
 	 *
-	 * @return the key of the action.
+	 * @param key of action.
+	 * @param name of action.
 	 */
-	public int key() {
-		return 6;
+	FindByNameAction(int key, String name) {
+		super(key, name);
 	}
 
 	/**
@@ -365,14 +318,5 @@ class FindByNameAction implements UserAction {
 			System.out.println("Not found");
 		}
 		System.out.println("Done.");
-	}
-
-	/**
-	 * <@inheritedDoc>.
-	 *
-	 * @return a string that describes the action.
-	 */
-	public String info() {
-		return "Find items by name.";
 	}
 }

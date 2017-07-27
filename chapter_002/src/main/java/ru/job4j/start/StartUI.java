@@ -49,7 +49,6 @@ public class StartUI {
 		int key = 0;
 		while (key != EXIT) {
 			menu.show();
-			System.out.println("log1");
 			key = this.input.ask("Select: ", MenuTracker.FIRST,	MenuTracker.SIZE);
 			menu.select(key);
 		}
