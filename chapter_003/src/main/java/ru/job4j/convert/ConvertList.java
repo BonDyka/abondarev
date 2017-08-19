@@ -52,6 +52,12 @@ public class ConvertList {
         return result;
     }
 
+    /**
+     * Convert list of array of integer into list of integer.
+     *
+     * @param list for converting.
+     * @return converted list.
+     */
     public List<Integer> convert(List<int[]> list) {
         List<Integer> result = new ArrayList<>();
         for (int[] part : list) {
