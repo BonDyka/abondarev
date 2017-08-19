@@ -22,5 +22,6 @@
 	<modules>
 		<module>base_syntax</module>
 		<module>chess</module>
+		<module>oop</module>
 	</modules>	
 </project>
