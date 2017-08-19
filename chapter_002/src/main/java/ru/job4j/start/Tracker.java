@@ -1,7 +1,8 @@
 package ru.job4j.start;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-import java.util.Arrays;
 import ru.job4j.models.Item;
 
 /**
@@ -15,12 +16,7 @@ public class Tracker {
 	/**
 	 * The list of items.
 	 */
-	private Item[] items = new Item[100];
-
-	/**
-	 * The pointer on next empty cell of list of items after last added item.
-	 */
-	private int position = 0;
+	private ArrayList<Item> items = new ArrayList<>(100);
 
 	/**
 	 * The method adds specified as parameter item to the list of items.
@@ -31,9 +27,8 @@ public class Tracker {
 	 */
 	public Item add(Item item) {
 		item.setId(this.generateId());
-		items[this.position] = item;
-		this.position++;
-		return items[this.position - 1];
+		this.items.add(item);
+		return item;
 	}
 
 	/**
@@ -43,9 +38,9 @@ public class Tracker {
 	 * @param item is item for replace.
 	 */
 	public void update(Item item) {
-		for (int index = 0; index < this.position; index++) {
-			if ((this.items[index].getId()).equals(item.getId())) {
-				this.items[index] = item;
+		for (int index = 0; index < this.items.size(); index++) {
+			if ((this.items.get(index).getId()).equals(item.getId())) {
+				this.items.set(index, item);
 				break;
 			}
 		}
@@ -58,11 +53,9 @@ public class Tracker {
 	 * @param item is item for removing.
 	 */
 	public void delete(Item item) {
-		for (int index = 0; index < this.position; index++) {
-			if ((this.items[index].getId()).equals(item.getId())) {
-				System.arraycopy(this.items, index + 1, this.items, index,
-								 this.position - index - 1);
-				this.position--;
+		for (int index = 0; index < this.items.size(); index++) {
+			if ((this.items.get(index).getId()).equals(item.getId())) {
+				this.items.remove(index);
 				break;
 			}
 		}
@@ -73,8 +66,8 @@ public class Tracker {
 	 *
 	 * @return List of all items.
 	 */
-	public Item[] findAll() {
-		return Arrays.copyOf(this.items, this.position);
+	public List<Item> findAll() {
+		return new ArrayList<>(this.items);
 	}
 
 	/**
@@ -82,18 +75,16 @@ public class Tracker {
 	 * array of items if it finded. Else return an empty array.
 	 *
 	 * @param name is name of find out item.
-	 * @return array of items with specified name or empty array.
+	 * @return list of items with specified name or empty array.
 	 */
-	public Item[] findByName(String name) {
-		Item[] result = new Item[this.position];
-		int counter = 0;
-		for (int index = 0; index < this.position; index++) {
-			if ((this.items[index].getName()).equals(name)) {
-				result[index] = this.items[index];
-				counter++;
+	public List<Item> findByName(String name) {
+		List<Item> result = new ArrayList<>();
+		for (int index = 0; index < this.items.size(); index++) {
+			if ((this.items.get(index).getName()).equals(name)) {
+				result.add(this.items.get(index));
 			}
 		}
-		return Arrays.copyOf(result, counter);
+		return result;
 	}
 
 	/**

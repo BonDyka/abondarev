@@ -2,6 +2,9 @@ package ru.job4j.start;
 
 import ru.job4j.models.Item;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The class represents menu.
  *
@@ -23,7 +26,7 @@ public class MenuTracker {
 	/**
 	 * The list of all action in menu.
 	 */
-	private UserAction[] actions = new UserAction[SIZE];
+	private List<UserAction> actions = new ArrayList<>();
 
 	/**
 	 * The input system instance.
@@ -50,13 +53,13 @@ public class MenuTracker {
 	 * The method fill actions of the menu.
 	 */
 	public void fillActions() {
-		this.actions[0] = this.new AddAction(1, "Add an item.");
-		this.actions[1] = new MenuTracker.ShowAllAction(2, "Show all items.");
-		this.actions[2] = this.new EditAction(3, "Edit an item.");
-		this.actions[3] = this.new DeleteAction(4, "Delete an action.");
-		this.actions[4] = this.new FindByIdAction(5, "Find the item by Id.");
-		this.actions[5] = new FindByNameAction(6, "Find items by name.");
-		this.actions[6] = this.new ExitAction(7, "Exit.");
+		this.actions.add(this.new AddAction(1, "Add an item."));
+		this.actions.add(new MenuTracker.ShowAllAction(2, "Show all items."));
+		this.actions.add(this.new EditAction(3, "Edit an item."));
+		this.actions.add(this.new DeleteAction(4, "Delete an action."));
+		this.actions.add(this.new FindByIdAction(5, "Find the item by Id."));
+		this.actions.add(new FindByNameAction(6, "Find items by name."));
+		this.actions.add(this.new ExitAction(7, "Exit."));
 	}
 
 	/**
@@ -147,8 +150,8 @@ public class MenuTracker {
 		 * @param tracker an tracker instance.
 		 */
 		public void execute(Input input, Tracker tracker) {
-			Item[] items = tracker.findAll();
-			if (items.length != 0) {
+			List<Item> items = tracker.findAll();
+			if (items.size() != 0) {
 				for (Item item : items) {
 					System.out.println(item);
 				}
@@ -309,8 +312,8 @@ class FindByNameAction extends BaseAction {
 	 */
 	public void execute(Input input, Tracker tracker) {
 		String name = input.ask("Please enter name of item: ");
-		Item[] items = tracker.findByName(name);
-		if (items.length != 0) {
+		List<Item> items = tracker.findByName(name);
+		if (items.size() != 0) {
 			for (Item item : items) {
 				System.out.println(item);
 			}

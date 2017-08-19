@@ -3,6 +3,9 @@ package ru.job4j.start;
 import org.junit.Test;
 import ru.job4j.models.Item;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
@@ -23,7 +26,7 @@ public class TrackerTest {
 		Tracker tracker = new Tracker();
 		Item expected = new Item("test1", "testDesc", 123L);
 		tracker.add(expected);
-		assertThat(tracker.findAll()[0], is(expected));
+		assertThat(tracker.findAll().get(0), is(expected));
 	}
 
 	/**
@@ -36,7 +39,7 @@ public class TrackerTest {
 		Item expected = new Item("test2", "testDesc2", 256L);
 		expected.setId(item.getId());
 		tracker.update(expected);
-		assertThat(tracker.findAll()[0], is(expected));
+		assertThat(tracker.findAll().get(0), is(expected));
 	}
 
 
@@ -49,7 +52,7 @@ public class TrackerTest {
 		Item item = tracker.add(new Item("test1", "testDesc", 123L));
 		tracker.delete(item);
 		int expectedLength = 0;
-		assertThat(tracker.findAll().length, is(expectedLength));
+		assertThat(tracker.findAll().size(), is(expectedLength));
 	}
 
 	/**
@@ -57,10 +60,10 @@ public class TrackerTest {
 	 * with its name is exist.
 	 */
 	@Test
-	public void whenFindByNameItemThatExistThenItReturnArrayWithIt() {
+	public void whenFindByNameItemThatExistThenItReturnListWithIt() {
 		Tracker tracker = new Tracker();
 		Item item = tracker.add(new Item("test1", "testDesc", 123L));
-		Item[] result = tracker.findByName(item.getName());
+		List<Item> result = tracker.findByName(item.getName());
 		assertThat(result, is(tracker.findAll()));
 	}
 
@@ -69,11 +72,11 @@ public class TrackerTest {
 	 * with its name is not exist.
 	 */
 	@Test
-	public void whenFindByNameItemThatNotExistThenItReturnEmptyArray() {
+	public void whenFindByNameItemThatNotExistThenItReturnEmptyList() {
 		Tracker tracker = new Tracker();
 		Item item = tracker.add(new Item("test1", "testDesc", 123L));
-		Item[] result = tracker.findByName("Test");
-		assertThat(result, is(new Item[0]));
+		List<Item> result = tracker.findByName("Test");
+		assertThat(result, is(new ArrayList<Item>()));
 	}
 
 	/**

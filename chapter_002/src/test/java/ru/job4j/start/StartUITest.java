@@ -24,7 +24,7 @@ public class StartUITest {
 		// Stub for input system.
 		Input input = new StubInput(new String[] {"1", "test", "test desc", "7"});
 		new StartUI(input, tracker).init();
-		assertThat(tracker.findAll()[0].getName(), is("test"));
+		assertThat(tracker.findAll().get(0).getName(), is("test"));
 	}
 
 	/**
@@ -52,6 +52,6 @@ public class StartUITest {
 		// Stub for input system.
 		Input input = new StubInput(new String[] {"4", item.getId(), "7"});
 		new StartUI(input, tracker).init();
-		assertThat(tracker.findAll().length, is(0));
+		assertThat(tracker.findAll().size(), is(0));
 	}
 }
