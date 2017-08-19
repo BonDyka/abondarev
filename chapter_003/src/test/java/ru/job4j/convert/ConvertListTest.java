@@ -46,4 +46,15 @@ public class ConvertListTest {
         };
         assertThat(result, is(expected));
     }
+
+    /**
+     * Tests converting List<int[]> to List<Integer>.
+     */
+    @Test
+    public void convertListOfArraysToListElements() {
+        List<int[]> list = Arrays.asList(new int[]{1, 2}, new int[]{3, 4, 5, 6});
+        ConvertList converter = new ConvertList();
+        List<Integer> result = converter.convert(list);
+        assertThat(result, is(Arrays.asList(1, 2, 3, 4, 5, 6)));
+    }
 }
