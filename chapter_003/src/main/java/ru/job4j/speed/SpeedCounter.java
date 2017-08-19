@@ -24,7 +24,7 @@ public class SpeedCounter {
     public long add(Collection<String> collection, int amount) {
         long start = System.currentTimeMillis();
         for (int i = 0; i < amount; i++) {
-            collection.add(String.format("%s",i));
+            collection.add(String.format("%s", i));
         }
         long end = System.currentTimeMillis();
         return end - start;
@@ -45,6 +45,11 @@ public class SpeedCounter {
         return end - start;
     }
 
+    /**
+     * Main.
+     *
+     * @param args arguments.
+     */
     public static void main(String[] args) {
         long timeAdd, timeRemove;
         Collection<String> collection;
