@@ -39,11 +39,13 @@ public class ConvertList {
         int[][] result = new int[sideLen][sideLen];
         int row = 0;
         int col = 0;
-        for (int item : list) {
-            result[row][col++] = item;
-            if (col >= sideLen) {
-                col = 0;
-                row++;
+        for (Integer item : list) {
+            if (item != null) {
+                result[row][col++] = item;
+                if (col >= sideLen) {
+                    col = 0;
+                    row++;
+                }
             }
         }
         if (result[sideLen - 1][0] == 0) {
