@@ -61,8 +61,10 @@ public class ConvertList {
     public List<Integer> convert(List<int[]> list) {
         List<Integer> result = new ArrayList<>();
         for (int[] part : list) {
-            for (int item : part) {
-                result.add(item);
+            if (part != null) {
+                for (int item : part) {
+                    result.add(item);
+                }
             }
         }
         return result;
