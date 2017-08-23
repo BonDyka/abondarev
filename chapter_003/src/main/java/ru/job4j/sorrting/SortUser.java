@@ -1,6 +1,10 @@
 package ru.job4j.sorrting;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.Comparator;
+import java.util.Collections;
 
 /**
  * Shows sort of collection.
