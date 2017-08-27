@@ -57,7 +57,7 @@ public class PrimeIteratorTest {
      */
     @Test
     public void whenCalledNextIfPrimeThereIsNotShouldReturnNull() {
-        Iterator it = new PrimeIterator(new int[] {4});;
+        Iterator it = new PrimeIterator(new int[] {4});
 
         assertNull(it.next());
     }
