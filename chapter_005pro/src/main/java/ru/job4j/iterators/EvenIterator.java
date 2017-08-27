@@ -37,7 +37,7 @@ public class EvenIterator implements Iterator {
     @Override
     public boolean hasNext() {
         return this.position < this.values.length
-                && this.values[position]%2 == 0;
+                && this.values[position] % 2 == 0;
     }
 
     /**
@@ -48,8 +48,8 @@ public class EvenIterator implements Iterator {
     @Override
     public Integer next() {
         Integer result = null;
-        for (;this.position < this.values.length; this.position++) {
-            if (values[position]%2 == 0) {
+        for (; this.position < this.values.length; this.position++) {
+            if (values[position] % 2 == 0) {
                 result = values[position];
                 break;
             }

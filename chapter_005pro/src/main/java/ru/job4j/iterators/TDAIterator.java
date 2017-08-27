@@ -5,10 +5,11 @@ import java.util.Iterator;
 /**
  * The class implements an iterator for two-dimension array.
  *
+ * @param <E> Type of elements returned by the iterator.
  * @author abondarev.
  * @since 26.08.2017.
  */
-public class TDAIterator<E> implements Iterator<E>{
+public class TDAIterator<E> implements Iterator<E> {
 
     /**
      * Contains elements for iteration.
