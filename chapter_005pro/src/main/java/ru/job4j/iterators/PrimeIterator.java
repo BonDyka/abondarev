@@ -40,7 +40,8 @@ public class PrimeIterator implements Iterator {
     public boolean hasNext() {
         boolean result = false;
         for (int i = pointer; i < this.values.length; i++) {
-            if (result = isPrime(this.values[i])) {
+            if (isPrime(this.values[i])) {
+                result = true;
                 break;
             }
         }
