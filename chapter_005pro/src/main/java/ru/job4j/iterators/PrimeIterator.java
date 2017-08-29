@@ -38,7 +38,13 @@ public class PrimeIterator implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        return isPrime(values[pointer]);
+        boolean result = false;
+        for (int i = pointer; i < this.values.length; i++) {
+            if (result = isPrime(this.values[i])) {
+                break;
+            }
+        }
+        return result;
     }
 
     /**
