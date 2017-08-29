@@ -25,7 +25,7 @@ public class Converter {
 
             @Override
             public boolean hasNext() {
-                return currentIterator.hasNext() && it.hasNext();
+                return currentIterator.hasNext() || it.hasNext();
             }
 
             @Override
