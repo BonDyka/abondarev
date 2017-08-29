@@ -36,8 +36,14 @@ public class EvenIterator implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        return this.position < this.values.length
-                && this.values[position] % 2 == 0;
+        boolean result = false;
+        for (int i = position; i < this.values.length; i++) {
+            if (this.values[i] % 2 == 0) {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 
     /**
