@@ -80,12 +80,10 @@ public class BankMapTest {
     public void whenDeleteUserAccountThenSizeOfListAccountsLesserOnOne() {
         User user = new User("Alex", "SV254683");
         Account firstAccount = new Account(1000, "243985610");
-        Account secondAccount = new Account(5000, "246585610");
 
         BankMap map = new BankMap();
         map.addUser(user);
         map.addAccountToUser(user, firstAccount);
-        map.addAccountToUser(user, secondAccount);
         int startSize = map.getUserAccounts(user).size();
 
         map.deleteUser(user);
