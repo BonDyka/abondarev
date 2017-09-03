@@ -14,10 +14,10 @@ import static org.junit.Assert.assertThat;
 public class SimpleLinkedListTest {
 
     /**
-     * Tests method add()
+     * Tests method add().
      */
     @Test
-    public void whenCalledAddSizeShouldBeIncreeseByOne() {
+    public void whenCalledAddSizeShouldBeIncreaseByOne() {
         SimpleLinkedList<Integer> sll = new SimpleLinkedList<>();
         int startSize = sll.size();
         sll.add(234);
