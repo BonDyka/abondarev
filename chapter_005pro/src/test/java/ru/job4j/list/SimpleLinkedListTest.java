@@ -45,4 +45,17 @@ public class SimpleLinkedListTest {
         SimpleLinkedList sll = new SimpleLinkedList();
         Object o = sll.get(1);
     }
+
+    /**
+     * Tests method delete().
+     */
+    @Test
+    public void whenCalledDeleteThenSizeDecrease() {
+        SimpleLinkedList<Integer> sll = new SimpleLinkedList<>();
+        sll.add(234);
+        int startSize = sll.size();
+        sll.delete(0);
+        int result = sll.size();
+        assertThat(result, is(startSize - 1));
+    }
 }

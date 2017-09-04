@@ -14,7 +14,7 @@ public class SimpleLinkedList<T> implements Iterable<T> {
     /**
      * Links on first element of list.
      */
-    private Node<T> firs;
+    private Node<T> first;
 
     /**
      * Links on last element of list.
@@ -36,7 +36,7 @@ public class SimpleLinkedList<T> implements Iterable<T> {
         final Node<T> newNode = new Node<T>(l, value, null);
         this.last = newNode;
         if (l == null) {
-            this.firs = newNode;
+            this.first = newNode;
         } else {
             l.next = newNode;
         }
@@ -50,12 +50,36 @@ public class SimpleLinkedList<T> implements Iterable<T> {
      * @return element from index position.
      */
     public T get(int index) {
-        checkIndex(index);
-        Node<T> pointer = this.firs;
-        for (int i = 0; i < index; i++) {
-            pointer = pointer.next;
+        Node<T> result = this.node(index);
+        return result.value;
+    }
+
+    /**
+     * Deletes element from index position.
+     *
+     * @param index it's element position.
+     */
+    public void delete(int index) {
+        Node<T> node = this.node(index);
+        final Node<T> n = node.next;
+        final Node<T> p = node.prev;
+
+        if (p == null) {
+            this.first = n;
+        } else {
+            p.next = n;
+            node.prev = null;
         }
-        return pointer.value;
+
+        if (n == null) {
+            this.last = p;
+        } else {
+            n.prev = p;
+            node.next = null;
+        }
+
+        node.value = null;
+        this.size--;
     }
 
     /**
@@ -76,11 +100,11 @@ public class SimpleLinkedList<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             // Links on node after last calling next().
-            private Node<T> current = firs;
+            private Node<T> current = first;
 
             @Override
             public boolean hasNext() {
-                return firs.next != null;
+                return first.next != null;
             }
 
             @Override
@@ -102,6 +126,21 @@ public class SimpleLinkedList<T> implements Iterable<T> {
         if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Index out of bounds");
         }
+    }
+
+    /**
+     * Returns a node at index position.
+     *
+     * @param index of node position.
+     * @return node instance from index position.
+     */
+    private Node<T> node(int index) {
+        checkIndex(index);
+        Node<T> result = this.first;
+        for (int i = 0; i < index; i++) {
+            result = result.next;
+        }
+        return result;
     }
 
     /**
