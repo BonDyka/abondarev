@@ -78,25 +78,32 @@ public class User {
         return birthDay;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof User)) return false;
-//
-//        User user = (User) o;
-//
-//        return name.equals(user.name) && birthDay.equals(user.birthDay);
-//    }
-
     /**
-     * Returns integer value of hash code for the User.
+     * Compares <tt>this</tt> with object <tt>o</tt> specified as parameter.
+     * Returns <tt>true</tt> if they are equals.
      *
-     * @return integer value of hash code for the User.
+     * @param o object for comparision.
+     * @return <tt>true</tt> if they are equals.
      */
     @Override
-    public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + birthDay.hashCode();
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        return name.equals(user.name) && birthDay.equals(user.birthDay);
     }
+
+//    /**
+//     * Returns integer value of hash code for the User.
+//     *
+//     * @return integer value of hash code for the User.
+//     */
+//    @Override
+//    public int hashCode() {
+//        int result = name.hashCode();
+//        result = 31 * result + birthDay.hashCode();
+//        return result;
+//    }
 }
