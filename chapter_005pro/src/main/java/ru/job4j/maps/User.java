@@ -95,15 +95,15 @@ public class User {
         return name.equals(user.name) && birthDay.equals(user.birthDay);
     }
 
-//    /**
-//     * Returns integer value of hash code for the User.
-//     *
-//     * @return integer value of hash code for the User.
-//     */
-//    @Override
-//    public int hashCode() {
-//        int result = name.hashCode();
-//        result = 31 * result + birthDay.hashCode();
-//        return result;
-//    }
+    /**
+     * Returns integer value of hash code for the User.
+     *
+     * @return integer value of hash code for the User.
+     */
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + birthDay.hashCode();
+        return result;
+    }
 }

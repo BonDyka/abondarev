@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Tests adding two object of User to Map without overriding methods hashCode()
- * and with overriding methods equals() for them.
+ * Tests adding two object of User to Map with overriding methods hashCode()
+ * and methods equals() for them.
  *
  * @author abondarev.
  * @since 08.09.2017.
