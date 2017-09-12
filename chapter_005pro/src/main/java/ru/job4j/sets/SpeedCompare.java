@@ -19,7 +19,7 @@ public class SpeedCompare {
      *         and second implementation of Set.
      */
     public int compare(Set<Integer> first, Set<Integer> second, int amount) {
-        return (int) (countTime(first, amount) - countTime(second, amount));
+        return (int) (((double) countTime(second, amount) / (double) countTime(first, amount)) * 100);
     }
 
     /**
