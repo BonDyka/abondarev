@@ -179,7 +179,7 @@ public class Directory<K, V> {
 
             @Override
             public Node<K, V> next() {
-                return table[pointer];
+                return table[pointer++];
             }
         };
     }
