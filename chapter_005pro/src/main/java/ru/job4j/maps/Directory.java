@@ -254,9 +254,8 @@ public class Directory<K, V> {
      * @return result calculation hash-function.
      */
     private static <K> int hash(K key) {
-        int h = key.hashCode();
-        h = (h >>> 20) ^ (h >>> 12);
-        return  (h >>> 7) ^ (h >>> 4);
+        int h;
+        return  (h = key.hashCode()) ^ (h >>> 16);
     }
 
     /**
@@ -265,7 +264,7 @@ public class Directory<K, V> {
      * @param hash of key.
      * @return index for element.
      */
-    private static int hashToIndex(int hash) {
-        return Math.abs(hash % DEFAULT_CAPACITY);
+    private int hashToIndex(int hash) {
+        return hash & (this.capacity - 1);
     }
 }
