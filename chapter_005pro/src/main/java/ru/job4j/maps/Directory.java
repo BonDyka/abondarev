@@ -1,5 +1,6 @@
 package ru.job4j.maps;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -201,11 +202,9 @@ public class Directory<K, V> {
      */
     private void checkSize() {
         if (this.size + 1 >= threshold) {
-            Node<K, V>[] oldTable = this.table;
-            this.table = new Node[this.capacity << 1];
-            System.arraycopy(oldTable, 0, this.table, 0, oldTable.length);
-            this.capacity = this.table.length;
+            this.capacity = this.capacity << 1;
             this.threshold = tableSizeFor(this.capacity);
+            this.table = Arrays.copyOf(this.table, this.capacity);
         }
     }
 
@@ -254,8 +253,8 @@ public class Directory<K, V> {
      * @return result calculation hash-function.
      */
     private static <K> int hash(K key) {
-        int h;
-        return  (h = key.hashCode()) ^ (h >>> 16);
+        int h = key.hashCode();
+        return  h ^ (h >>> 16);
     }
 
     /**
