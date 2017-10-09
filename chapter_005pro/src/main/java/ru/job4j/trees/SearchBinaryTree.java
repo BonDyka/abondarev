@@ -55,7 +55,9 @@ public class SearchBinaryTree<E extends Comparable<E>> {
      * @return iterator for the tree elements.
      */
     public Iterator iterator() {
-        return this.treeToList(this.root).iterator();
+        List<E> list = new ArrayList<>();
+        this.treeToList(this.root, list);
+        return list.iterator();
     }
 
     /**
@@ -129,16 +131,15 @@ public class SearchBinaryTree<E extends Comparable<E>> {
     /**
      * Converts a tree from pointed root to tree.
      *
-     * @param root of tree
-     * @return list of tree element.
+     * @param root of tree.
+     * @param list it's list for storing all elements of a tree.
      */
-    private List<E> treeToList(Node<E> root) {
-        List<E> result = new ArrayList<>();
-        if (root != null) {
-            result.add(root.value);
-            this.treeToList(root.left);
-            this.treeToList(root.right);
+    private void treeToList(Node<E> root, List<E> list) {
+        if (root == null) {
+            return;
         }
-        return result;
+        list.add(root.value);
+        this.treeToList(root.left, list);
+        this.treeToList(root.right, list);
     }
 }

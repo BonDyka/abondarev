@@ -23,5 +23,6 @@
 		<module>base_syntax</module>
 		<module>chess</module>
 		<module>collection_lite</module>
+		<module>orderbook</module>
 	</modules>	
 </project>
