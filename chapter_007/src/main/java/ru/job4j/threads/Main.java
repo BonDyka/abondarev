@@ -14,7 +14,8 @@ public class Main {
      * @param args array of arguments.
      */
     public static void main(String[] args) {
-        new Thread(new Counter("Let's dive in and see a variable in the wild.", true)).start();
-        new Thread(new Counter("Let's dive in and see a variable in the wild.", false)).start();
+        new Thread(new WordCounter("Let's dive in and see a variable in the wild.")).start();
+        new Thread(new WhitespaceCounter("Let's dive in and see a variable in the wild.")).start();
+
     }
 }
