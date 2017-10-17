@@ -13,9 +13,30 @@ public class Main {
      *
      * @param args array of arguments.
      */
-    public static void main(String[] args) {
-        new Thread(new WordCounter("Let's dive in and see a variable in the wild.")).start();
-        new Thread(new WhitespaceCounter("Let's dive in and see a variable in the wild.")).start();
-
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println("Start the program.");
+        String text = "Let's dive in and see a variable in the wild.";
+        Thread first = new Thread(new WordCounter(text));
+        Thread second = new Thread(new WhitespaceCounter(text));
+        long startTime = System.currentTimeMillis();
+        long waitingTime = 1;
+        first.start();
+        System.out.println("Start first thread.");
+        second.start();
+        System.out.println("Start second thread.");
+        first.join(100);
+        second.join(100);
+        if (System.currentTimeMillis() - startTime > waitingTime) {
+            System.out.println("Interrupt threads.");
+            if (!first.isInterrupted()) {
+                first.interrupt();
+                first.join();
+            }
+            if (!second.isInterrupted()) {
+                second.interrupt();
+                second.join();
+            }
+        }
+        System.out.println("End of the program.");
     }
 }
