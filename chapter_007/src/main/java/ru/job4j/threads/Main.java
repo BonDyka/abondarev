@@ -12,6 +12,7 @@ public class Main {
      * Main method.
      *
      * @param args array of arguments.
+     * @throws InterruptedException if threads are interrupted.
      */
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Start the program.");
