@@ -1,7 +1,5 @@
 package ru.job4j.threads;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * Represent timer for counting general time of program executing.
  *
@@ -11,23 +9,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Timer implements Runnable {
 
     /**
-     * Time of program execution.
-     */
-    private AtomicInteger time;
-
-    /**
      * Limit of execution time.
      */
-    private int timeLimit;
+    private long timeLimit;
 
     /**
      * The constructor.
      *
-     * @param time amount of time past from start program.
      * @param timeLimit time limit of program execution.
      */
-    public Timer(AtomicInteger time, int timeLimit) {
-        this.time = time;
+    public Timer(long timeLimit) {
         this.timeLimit = timeLimit;
     }
 
@@ -36,16 +27,12 @@ public class Timer implements Runnable {
      */
     @Override
     public void run() {
-        int pastTime;
-        while ((pastTime = time.getAndIncrement()) < timeLimit) {
-            if (pastTime % 10 == 1) {
-                System.out.println(String.format("Time: %s ms", pastTime));
-            }
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        System.out.println("Start timer.");
+        try {
+            Thread.sleep(timeLimit);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        System.out.println("Time out.");
     }
 }

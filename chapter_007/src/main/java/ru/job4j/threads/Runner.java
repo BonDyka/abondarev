@@ -1,7 +1,5 @@
 package ru.job4j.threads;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * Runner for test two threads Timer and CharCounter.
  *
@@ -13,7 +11,7 @@ public class Runner {
     /**
      * Limit of execution time.
      */
-    private static int timeLimit = 200;
+    private static long timeLimit = 100;
 
     /**
      * Main.
@@ -21,18 +19,19 @@ public class Runner {
      * @param args array of arguments.
      */
     public static void main(String[] args) {
-        AtomicInteger time = new AtomicInteger(0);
         String text = "Hello, I am Alex. It's my thread.";
-        Thread timer = new Thread(new Timer(time, timeLimit));
-        Thread counter = new Thread(new CharCounter(time, timeLimit, text));
-        System.out.println("Timer thread is started.");
+        Thread timer = new Thread(new Timer(timeLimit));
+        Thread counter = new Thread(new CharCounter(text));
+        System.out.println("Program started.");
         timer.start();
-        System.out.println("Counter thread is started.");
         counter.start();
         try {
-            timer.join(timeLimit);
-            counter.join(timeLimit);
             System.out.println("Execution...");
+            timer.join();
+            counter.join(timeLimit);
+            if (!timer.isAlive()) {
+                counter.interrupt();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
