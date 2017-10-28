@@ -23,20 +23,24 @@ public class Counter implements Runnable {
     @GuardedBy("guarder")
     private int counter;
 
-    /**
-     * Increment value of counter.
-     */
-    public void increment() {
-        this.counter++;
+    @SuppressWarnings("checkstyle")
+    public static void main(String[] args) throws InterruptedException {
+        Counter counter = new Counter();
+        Thread threadA = new Thread(counter);
+        Thread threadB = new Thread(counter);
+        threadA.start();
+        threadA.join();
+        threadB.start();
+        threadB.join();
+        System.out.println("Expected: 3");
+        System.out.printf("Actually: %s \r\n", counter.increment());
     }
 
     /**
-     * Returns value of count.
-     *
-     * @return value of count.
+     * Increment value of counter.
      */
-    public int getCount() {
-        return this.counter;
+    public int increment() {
+        return ++this.counter;
     }
 
     /**
