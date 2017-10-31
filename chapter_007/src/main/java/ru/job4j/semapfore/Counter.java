@@ -15,7 +15,7 @@ public class Counter implements Runnable {
     /**
      * Guard object.
      */
-    private Object guarder = new Object();
+    private final Object guarder = new Object();
 
     /**
      * Value of counter.
@@ -40,7 +40,9 @@ public class Counter implements Runnable {
      * Increment value of counter.
      */
     public int increment() {
-        return ++this.counter;
+        synchronized(guarder) {
+            return ++this.counter;
+        }
     }
 
     /**
