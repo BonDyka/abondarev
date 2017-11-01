@@ -40,7 +40,7 @@ public class Counter implements Runnable {
      * Increment value of counter.
      */
     public int increment() {
-        synchronized(guarder) {
+        synchronized (guarder) {
             return ++this.counter;
         }
     }
