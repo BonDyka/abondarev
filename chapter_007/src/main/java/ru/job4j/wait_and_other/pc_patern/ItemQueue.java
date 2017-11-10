@@ -1,8 +1,5 @@
 package ru.job4j.wait_and_other.pc_patern;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
-
 /**
  * Class as a chanel for {@link Producer}-{@link Consumer} exchange.
  *
@@ -11,17 +8,54 @@ import java.util.concurrent.LinkedBlockingDeque;
  */
 public class ItemQueue {
 
-    private BlockingQueue<Item> queue;
+    /**
+     * Stores unit of work from {@link Producer}.
+     */
+    private final Item[] items;
 
+    /**
+     * Among of elements.
+     */
+    private int size = 0;
+
+    /**
+     * The constructor.
+     */
     public ItemQueue() {
-        queue = new LinkedBlockingDeque<>();
+        items = new Item[10];
     }
 
-    public void put(final Item item) throws InterruptedException {
-        this.queue.put(item);
+    /**
+     * Inserts specified as parameter instance of {@link Item} after last
+     * added element.
+     *
+     * @param item element for adding.
+     * @throws InterruptedException if interrupted while waiting.
+     */
+    public synchronized void put(final Item item) throws InterruptedException {
+        while (this.size >= items.length) {
+            wait();
+        }
+        this.items[size++] = item;
+        notify();
     }
 
-    public Item take() throws InterruptedException {
-        return this.queue.take();
+    /**
+     * Retrieves and removes the head of this queue, waiting if necessary
+     * until an element becomes available.
+     *
+     * @return the head of this queue.
+     * @throws InterruptedException if interrupted while waiting.
+     */
+    public synchronized Item take() throws InterruptedException {
+        while (size <= 0) {
+            wait();
+        }
+        Item result = items[0];
+        System.arraycopy(this.items, 1, this.items, 0, this.size - 1);
+        items[size - 1] = null;
+        size--;
+        notify();
+        return result;
     }
 }
