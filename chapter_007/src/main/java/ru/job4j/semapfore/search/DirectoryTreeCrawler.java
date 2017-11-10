@@ -15,7 +15,7 @@ public class DirectoryTreeCrawler implements Runnable {
     /**
      * Queue for storing files with appropriates extension.
      */
-    private Queue<File> files;
+    private final Queue<File> files;
 
     /**
      * The root directory path.
