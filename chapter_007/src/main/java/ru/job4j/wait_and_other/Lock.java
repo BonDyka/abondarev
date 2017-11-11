@@ -19,6 +19,11 @@ public class Lock {
     private boolean locked = false;
 
     /**
+     * Link on thread that locked this lock.
+     */
+    private Thread lockingThread = null;
+
+    /**
      * Locks some resource action from other threads if one turn on lock.
      * Other threads will wait until called unlock().
      *
@@ -29,13 +34,18 @@ public class Lock {
             wait();
         }
         locked = true;
+        lockingThread = Thread.currentThread();
     }
 
     /**
      * Turn off lock and send signal someone threads awake.
      */
     public synchronized void unlock() {
+        if (this.lockingThread != Thread.currentThread()) {
+            throw new IllegalMonitorStateException("Called thread has not locked this lock");
+        }
         locked = false;
+        lockingThread = null;
         notify();
     }
 }
