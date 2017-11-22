@@ -1,4 +1,4 @@
-package ru.job4j.wait_and_other.pool;
+package ru.job4j.blockingalgo.pool;
 
 import java.util.LinkedList;
 import java.util.Queue;

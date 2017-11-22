@@ -1,4 +1,4 @@
-package ru.job4j.wait_and_other.pc_patern;
+package ru.job4j.blockingalgo.pcpatern;
 
 /**
  * Class as a chanel for {@link Producer}-{@link Consumer} exchange.

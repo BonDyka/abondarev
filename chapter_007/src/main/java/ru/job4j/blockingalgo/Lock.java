@@ -1,4 +1,4 @@
-package ru.job4j.wait_and_other;
+package ru.job4j.blockingalgo;
 
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
