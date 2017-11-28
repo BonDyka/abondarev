@@ -24,5 +24,6 @@
 		<module>chess</module>
 		<module>collection_lite</module>
 		<module>orderbook</module>
+		<module>bomberman</module>
 	</modules>	
 </project>
