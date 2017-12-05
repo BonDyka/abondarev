@@ -11,25 +11,64 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class Board {
 
-    public static final int MAX_WIDTH = 8; //(1 << 5) + 1; // aka 33
+    /**
+     * Default board width.
+     */
+    public static final int DEFAULT_WIDTH = (1 << 5) + 1; // aka 33
 
-    public static final int MAX_HEIGHT = 6; //(1 << 4) + 1; // aka 17
+    /**
+     * Default board height.
+     */
+    public static final int DEFAULT_HEIGHT = (1 << 4) + 1; // aka 17
 
+    private final int width;
+
+    private final int height;
+
+    /*
+     * Exit coordinates for win level.
+     */
     private int xDoorCoordinate;
 
     private int yDoorCoordinate;
 
+    /*
+     * The board.
+     */
     private final ReentrantLock[][] board;
 
+    /*
+     * the board map for graphic representation.
+     */
+    private final char[][] boardMap;
+
     public Board() {
-        board = new ReentrantLock[MAX_WIDTH][MAX_HEIGHT];
+        this(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     }
 
+    public Board(int width, int height) {
+        this.width = width;
+        this.height = height;
+        board = new ReentrantLock[this.width][this.height];
+        boardMap = new char[this.width][this.height];
+    }
+
+    /**
+     * Init the board. Use immediately after the board creation.
+     */
     public void init() {
         fillBoard();
-        setDoorCoordinates();
         installBounds();
-        //installObstacles();
+        installObstacles();
+        setDoorCoordinates();
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public int[] getExitCoordinates() {
@@ -40,39 +79,73 @@ public class Board {
         return this.board[x][y];
     }
 
+    /**
+     * Returns chars representation of the cell owner.
+     *
+     * @param x cell coordinate.
+     * @param y cell coordinate.
+     * @return chars representation of the cell owner.
+     */
+    public char getCellOwner(final int x, final int y) {
+        return boardMap[x][y];
+    }
+
+    public void setCellOwner(final int x, final int y, final char owner) {
+        boardMap[x][y] = owner;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (char[] chars : boardMap) {
+            for (char ch : chars) {
+                builder.append(ch).append(" ");
+            }
+            builder.append("\r\n");
+        }
+        return builder.toString();
+    }
+
     private void fillBoard() {
-        for (int i = 0; i < MAX_WIDTH; i++) {
-            for (int j = 0; j < MAX_HEIGHT; j++) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 this.board[i][j] = new ReentrantLock();
+                boardMap[i][j] = ' ';
             }
         }
     }
 
     private void setDoorCoordinates() {
         Random rn = new Random();
-        this.xDoorCoordinate = (rn.nextInt(MAX_WIDTH >> 1) * 2) - 1;
-        this.yDoorCoordinate = (rn.nextInt(MAX_HEIGHT >> 1) * 2) - 1;
-    }
+        int x = (rn.nextInt(width / 2) + (width / 2));
+        int y = (rn.nextInt(height / 2) + (height / 2));
+        while (this.getCell(x, y).isLocked()) {
+            x = (rn.nextInt(width / 2) + (width / 2));
+            y = (rn.nextInt(height / 2) + (height / 2));
+        }
+        xDoorCoordinate = x;
+        yDoorCoordinate = y;
+   }
 
     private void installBounds() {
-        for (int i = 0; i < MAX_WIDTH; i++) {
-            for (int j = 0; j < MAX_HEIGHT; j++) {
-                if (i == 0 || i == MAX_WIDTH - 1 || j == 0 || j == MAX_HEIGHT - 1) {
-                    if (i != this.xDoorCoordinate || j != this.yDoorCoordinate) {
-                        board[i][j].lock();
-                    }
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (i == 0 || i == width - 1 || j == 0 || j == height - 1) {
+                    board[i][j].lock();
+                    boardMap[i][j] = '*';
                 }
             }
         }
     }
 
-//    private void installObstacles() {
-//        for (int i = 1; i < MAX_WIDTH - 2; i++) {
-//            for (int j = 1; j < MAX_HEIGHT - 2; j++) {
-//                if (i%2 != 0 && j%2 != 0) {
-//                    this.board[i][j].lock();
-//                }
-//            }
-//        }
-//    }
+    private void installObstacles() {
+        for (int i = 1; i < width - 2; i++) {
+            for (int j = 1; j < height - 2; j++) {
+                if (i % 2 == 0 && j % 2 == 0) {
+                    this.board[i][j].lock();
+                    boardMap[i][j] = '*';
+                }
+            }
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package ru.job4j.bomberman.models;
+package ru.job4j.bomberman.models.units;
 
 import java.util.Random;
 
