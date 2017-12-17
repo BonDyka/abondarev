@@ -20,6 +20,7 @@
 		<module>chapter_005</module>
 		<module>chapter_005pro</module>
 		<module>chapter_007</module>
+		<module>chapter_008</module>
 
 		<module>test_tasks</module>
     </modules>
