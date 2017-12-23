@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/BonDyka/abondarev.svg?branch=master)](https://travis-ci.org/BonDyka/abondarev)
+[![codecov](https://codecov.io/gh/BonDyka/abondarev/branch/master/graph/badge.svg)](https://codecov.io/gh/BonDyka/abondarev)
 # Проект к курсу ["Java с нуля до трудоустройства"](http://job4j.ru/courses/java_courses.html)
 Целью данных проектов является демонстрация навыков разработки на языке Java. (Портфолио)
 ***
