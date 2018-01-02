@@ -23,7 +23,7 @@ public class XMLService {
 
     public void createDOM(List<Entry> entries, String fileName) {
         Element root = new Element("entries");
-        Document doc =new Document(root);
+        Document doc = new Document(root);
 
         for (Entry e : entries) {
             root.addContent(new Element("entry")

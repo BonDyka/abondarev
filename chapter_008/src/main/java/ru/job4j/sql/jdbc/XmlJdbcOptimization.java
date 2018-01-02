@@ -44,7 +44,7 @@ public class XmlJdbcOptimization {
      */
     public long execute() {
         DBService service = new DBService(dbUrl, login, password);
-        long time = - System.currentTimeMillis();
+        long time = -System.currentTimeMillis();
         service.createTable();
         service.fillTable(n);
         List<Entry> entries = service.getAll();
