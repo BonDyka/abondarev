@@ -3,6 +3,7 @@ package ru.job4j.start;
 import ru.job4j.models.Item;
 
 import org.junit.Test;
+import ru.job4j.start.store.UserStore;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -20,7 +21,7 @@ public class StartUITest {
 	 */
 	@Test
 	public void whenUserAddItemThenTrackerHasItemWithTheSameName() {
-		Tracker tracker = new Tracker();
+		Tracker tracker = new Tracker(new UserStore());
 		// Stub for input system.
 		Input input = new StubInput(new String[] {"1", "test", "test desc", "7"});
 		new StartUI(input, tracker).init();
@@ -32,7 +33,7 @@ public class StartUITest {
 	 */
 	@Test
 	public void whenUserUpdateItemThenTrackerHasUpdatedValue() {
-		Tracker tracker = new Tracker();
+		Tracker tracker = new Tracker(new UserStore());
 		//Added item cleary.
 		Item item = tracker.add(new Item("test", "test desc", System.currentTimeMillis()));
 		// Stub for input system.
@@ -46,7 +47,7 @@ public class StartUITest {
 	 */
 	@Test
 	public void whenUserDeleteItemThenTrackerHasNoItem() {
-		Tracker tracker = new Tracker();
+		Tracker tracker = new Tracker(new UserStore());
 		//Added item cleary.
 		Item item = tracker.add(new Item("test", "test desc", System.currentTimeMillis()));
 		// Stub for input system.

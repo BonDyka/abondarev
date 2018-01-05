@@ -2,6 +2,7 @@ package ru.job4j.start;
 
 import org.junit.Test;
 import ru.job4j.models.Item;
+import ru.job4j.start.store.UserStore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class TrackerTest {
 	 */
 	@Test
 	public void whenAddItemThenItMustBeAdded() {
-		Tracker tracker = new Tracker();
+		Tracker tracker = new Tracker(new UserStore());
 		Item expected = new Item("test1", "testDesc", 123L);
 		tracker.add(expected);
 		assertThat(tracker.findAll().get(0), is(expected));
@@ -34,7 +35,7 @@ public class TrackerTest {
 	 */
 	@Test
 	public void whenUpdateItemThenItMustBeUpdated() {
-		Tracker tracker = new Tracker();
+		Tracker tracker = new Tracker(new UserStore());
 		Item item = tracker.add(new Item("test1", "testDesc", 123L));
 		Item expected = new Item("test2", "testDesc2", 256L);
 		expected.setId(item.getId());
@@ -48,7 +49,7 @@ public class TrackerTest {
 	 */
 	@Test
 	public void whenDeleteItemThenItMustBeDeleted() {
-		Tracker tracker = new Tracker();
+		Tracker tracker = new Tracker(new UserStore());
 		Item item = tracker.add(new Item("test1", "testDesc", 123L));
 		tracker.delete(item);
 		int expectedLength = 0;
@@ -61,7 +62,7 @@ public class TrackerTest {
 	 */
 	@Test
 	public void whenFindByNameItemThatExistThenItReturnListWithIt() {
-		Tracker tracker = new Tracker();
+		Tracker tracker = new Tracker(new UserStore());
 		Item item = tracker.add(new Item("test1", "testDesc", 123L));
 		List<Item> result = tracker.findByName(item.getName());
 		assertThat(result, is(tracker.findAll()));
@@ -73,10 +74,9 @@ public class TrackerTest {
 	 */
 	@Test
 	public void whenFindByNameItemThatNotExistThenItReturnEmptyList() {
-		Tracker tracker = new Tracker();
-		Item item = tracker.add(new Item("test1", "testDesc", 123L));
+		Tracker tracker = new Tracker(new UserStore());
 		List<Item> result = tracker.findByName("Test");
-		assertThat(result, is(new ArrayList<Item>()));
+		assertThat(result, is(new ArrayList<>()));
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class TrackerTest {
 	 */
 	@Test
 	public void whenFindByIdWithExistIdThenReturnItem() {
-		Tracker tracker = new Tracker();
+		Tracker tracker = new Tracker(new UserStore());
 		Item item = tracker.add(new Item("test1", "testDesc", 123L));
 		Item result = tracker.findById(item.getId());
 		assertThat(result, is(item));
@@ -97,8 +97,7 @@ public class TrackerTest {
 	 */
 	@Test
 	public void whenFindByIdWithNoExistIdThenReturnNull() {
-		Tracker tracker = new Tracker();
-		Item item = tracker.add(new Item("test1", "testDesc", 123L));
+		Tracker tracker = new Tracker(new UserStore());
 		Item result = tracker.findById("ad 2341");
 		assertThat(result, nullValue());
 	}

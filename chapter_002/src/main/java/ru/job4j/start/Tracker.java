@@ -1,9 +1,9 @@
 package ru.job4j.start;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import ru.job4j.models.Item;
+import ru.job4j.start.store.Storage;
 
 /**
  * The class represent container for items.
@@ -14,9 +14,13 @@ import ru.job4j.models.Item;
 public class Tracker {
 
 	/**
-	 * The list of items.
+	 * The inner Storage.
 	 */
-	private ArrayList<Item> items = new ArrayList<>(100);
+	private Storage storage;
+
+	public Tracker(Storage storage) {
+		this.storage = storage;
+	}
 
 	/**
 	 * The method adds specified as parameter item to the list of items.
@@ -27,7 +31,7 @@ public class Tracker {
 	 */
 	public Item add(Item item) {
 		item.setId(this.generateId());
-		this.items.add(item);
+		this.storage.add(item);
 		return item;
 	}
 
@@ -38,12 +42,7 @@ public class Tracker {
 	 * @param item is item for replace.
 	 */
 	public void update(Item item) {
-		for (int index = 0; index < this.items.size(); index++) {
-			if ((this.items.get(index).getId()).equals(item.getId())) {
-				this.items.set(index, item);
-				break;
-			}
-		}
+		this.storage.update(item);
 	}
 
 	/**
@@ -53,12 +52,7 @@ public class Tracker {
 	 * @param item is item for removing.
 	 */
 	public void delete(Item item) {
-		for (int index = 0; index < this.items.size(); index++) {
-			if ((this.items.get(index).getId()).equals(item.getId())) {
-				this.items.remove(index);
-				break;
-			}
-		}
+		this.storage.delete(item);
 	}
 
 	/**
@@ -67,7 +61,7 @@ public class Tracker {
 	 * @return List of all items.
 	 */
 	public List<Item> findAll() {
-		return new ArrayList<>(this.items);
+		return this.storage.findAll();
 	}
 
 	/**
@@ -78,13 +72,7 @@ public class Tracker {
 	 * @return list of items with specified name or empty array.
 	 */
 	public List<Item> findByName(String name) {
-		List<Item> result = new ArrayList<>();
-		for (int index = 0; index < this.items.size(); index++) {
-			if ((this.items.get(index).getName()).equals(name)) {
-				result.add(this.items.get(index));
-			}
-		}
-		return result;
+		return this.storage.findByName(name);
 	}
 
 	/**
@@ -95,14 +83,7 @@ public class Tracker {
 	 * @return item with specified id or null.
 	 */
 	public Item findById(String id) {
-		Item result = null;
-		for (Item item : this.items) {
-			if (item != null && item.getId().equals(id)) {
-				result = item;
-				break;
-			}
-		}
-		return result;
+		return this.storage.findById(id);
 	}
 
 	/**

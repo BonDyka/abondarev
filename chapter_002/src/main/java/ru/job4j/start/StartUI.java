@@ -1,5 +1,7 @@
 package ru.job4j.start;
 
+import ru.job4j.start.store.UserStore;
+
 /**
  *
  */
@@ -37,11 +39,11 @@ public class StartUI {
 	 * @param args list of arguments.
 	 */
 	public static void main(String[] args) {
-		new StartUI(new ValidateInput(), new Tracker()).init();
+		new StartUI(new ValidateInput(), new Tracker(new UserStore())).init();
 	}
 
 	/**
-	 * The methos initialaizes main loop of application.
+	 * The methods initializes main loop of application.
 	 */
 	public void init() {
 		MenuTracker menu = new MenuTracker(this.input, this.tracker);
