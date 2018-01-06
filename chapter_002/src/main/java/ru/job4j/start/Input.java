@@ -13,7 +13,7 @@ public interface Input {
 	 * a string that represent answer.
 	 *
 	 * @param question is string for output.
-	 * @return a string thet represent the input data.
+	 * @return a string that represent the input data.
 	 */
 	String ask(String question);
 

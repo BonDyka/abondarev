@@ -4,7 +4,7 @@ import java.text.DateFormat;
 import java.util.Arrays;
 
 /**
- * The class represent main form of odrer for tasc project.
+ * The class represent main form of order for task project.
  *
  * @author abondarev.
  * @since 22.07.2017.
@@ -56,7 +56,7 @@ public class Item {
 	}
 
 	/**
-	 * The metod set up id specified as peremeter.
+	 * The method set up id specified as parameter.
 	 * The id SETS JUST ONE TIME.
 	 *
 	 * @param id is id for the item.

@@ -36,7 +36,7 @@ public class Tracker {
 	}
 
 	/**
-	 * The method get item as parameter, searche in list of items na item with
+	 * The method get item as parameter, search in list of items na item with
 	 * the same id and rewrite on its position specified item.
 	 *
 	 * @param item is item for replace.
@@ -65,8 +65,8 @@ public class Tracker {
 	}
 
 	/**
-	 * The method searche Item by its name (specified as parameter) and return
-	 * array of items if it finded. Else return an empty array.
+	 * The method search Item by its name (specified as parameter) and return
+	 * array of items if it found. Else return an empty array.
 	 *
 	 * @param name is name of find out item.
 	 * @return list of items with specified name or empty array.
@@ -76,8 +76,8 @@ public class Tracker {
 	}
 
 	/**
-	 * The method searche Item by its id (specified as parameter) and return
-	 * item if it finded. Else return <i>null</i>.
+	 * The method search Item by its id (specified as parameter) and return
+	 * item if it found. Else return <i>null</i>.
 	 *
 	 * @param id is id of find out item.
 	 * @return item with specified id or null.

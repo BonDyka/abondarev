@@ -1,7 +1,7 @@
 package ru.job4j.start;
 
 /**
- * The class rebresent template for actions.
+ * The class represent template for actions.
  *
  * @author abondarev.
  * @since 27.07.2017.

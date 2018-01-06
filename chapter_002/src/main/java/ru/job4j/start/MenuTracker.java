@@ -192,7 +192,7 @@ public class MenuTracker {
 										existed.getCreate());
 				updated.setId(existed.getId());
 				tracker.update(updated);
-				System.out.println("Operation complite.");
+				System.out.println("Operation complete.");
 			} else {
 				System.out.println("Operation failure! Invalid id!");
 			}
@@ -226,7 +226,7 @@ public class MenuTracker {
 			if (item != null) {
 				tracker.delete(item);
 			}
-			System.out.println("Operation complite.");
+			System.out.println("Operation complete.");
 		}
 	}
 
