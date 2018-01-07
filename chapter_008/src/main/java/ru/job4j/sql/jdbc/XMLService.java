@@ -22,8 +22,8 @@ public class XMLService {
 
     private static final Logger LOG = LoggerFactory.getLogger(XMLService.class);
 
-    private static final XMLOutputFactory oFactory = XMLOutputFactory.newInstance();
-    private static final XMLInputFactory iFactory = XMLInputFactory.newInstance();
+    private static final XMLOutputFactory OUTPUT_FACTORY = XMLOutputFactory.newInstance();
+    private static final XMLInputFactory INPUT_FACTORY = XMLInputFactory.newInstance();
 
     /**
      * Creates xml document from {@link List<Entry>} specified as parameter and
@@ -36,7 +36,7 @@ public class XMLService {
 
         XMLStreamWriter writer;
         try (FileWriter fw = new FileWriter(fileName)) {
-            writer = oFactory.createXMLStreamWriter(fw);
+            writer = OUTPUT_FACTORY.createXMLStreamWriter(fw);
             writer.writeStartDocument();
             writer.writeStartElement("entries");
             for (Entry e : entries) {
@@ -59,7 +59,7 @@ public class XMLService {
         List<String> data = new ArrayList<>();
         try (FileInputStream fis = new FileInputStream(fromXml);
              FileWriter fw = new FileWriter(toXml)) {
-            XMLStreamReader reader = iFactory.createXMLStreamReader(fis);
+            XMLStreamReader reader = INPUT_FACTORY.createXMLStreamReader(fis);
             int event;
             while (reader.hasNext()) {
                 event = reader.next();
@@ -68,7 +68,7 @@ public class XMLService {
                 }
             }
             reader.close();
-            XMLStreamWriter writer = oFactory.createXMLStreamWriter(fw);
+            XMLStreamWriter writer = OUTPUT_FACTORY.createXMLStreamWriter(fw);
             writer.writeStartDocument();
             writer.writeStartElement("entries");
             for (String str : data) {
@@ -88,7 +88,7 @@ public class XMLService {
     public int sumOfAttributeValues(String fileName) {
         int result = 0;
         try (FileInputStream fis = new FileInputStream(fileName)) {
-            XMLStreamReader reader = iFactory.createXMLStreamReader(fis);
+            XMLStreamReader reader = INPUT_FACTORY.createXMLStreamReader(fis);
             int event;
             while (reader.hasNext()) {
                 event = reader.next();
