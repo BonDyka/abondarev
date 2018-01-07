@@ -10,14 +10,14 @@ import java.util.List;
  */
 public class XmlJdbcOptimization {
 
-    private String dbUrl = "jdbc:sqlite:d:/java/abondarev/chapter_008/src/resources/entries.db";
+    private String dbUrl = "jdbc:sqlite:./entries.db";
 
     private String login;
 
     private String password;
 
-    private static String firstXml = "D:\\java\\abondarev\\chapter_008\\1.xml";
-    private static String secondXml = "D:\\java\\abondarev\\chapter_008\\2.xml";
+    private static String firstXml = "./1.xml";
+    private static String secondXml = "./2.xml";
 
     private int n = 1_000_000;
 
@@ -51,11 +51,11 @@ public class XmlJdbcOptimization {
 
         XMLService xmlService = new XMLService();
 
-        xmlService.createDOM(entries, firstXml);
+        xmlService.createXML(entries, firstXml);
 
-        xmlService.domToXSLT(firstXml, secondXml);
+        xmlService.xmlToXSLT(firstXml, secondXml);
 
-        System.out.println(xmlService.sumOfAttributeValues(secondXml, "field"));
+        System.out.println(xmlService.sumOfAttributeValues(secondXml));
 
         time += System.currentTimeMillis();
         return time;

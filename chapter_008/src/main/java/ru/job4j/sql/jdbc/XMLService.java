@@ -1,15 +1,16 @@
 package ru.job4j.sql.jdbc;
 
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.jdom2.*;
-import org.jdom2.output.*;
-import org.jdom2.input.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.xml.stream.*;
+import javax.xml.stream.events.XMLEvent;
 
 /**
  * Class for work with xml.
@@ -19,64 +20,85 @@ import org.slf4j.LoggerFactory;
  */
 public class XMLService {
 
-    private final static Logger LOG = LoggerFactory.getLogger(XMLService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XMLService.class);
 
-    public void createDOM(List<Entry> entries, String fileName) {
-        Element root = new Element("entries");
-        Document doc = new Document(root);
+    private static final XMLOutputFactory oFactory = XMLOutputFactory.newInstance();
+    private static final XMLInputFactory iFactory = XMLInputFactory.newInstance();
 
-        for (Entry e : entries) {
-            root.addContent(new Element("entry")
-                    .addContent(new Element("field").addContent(String.valueOf(e.getField()))));
-        }
+    /**
+     * Creates xml document from {@link List<Entry>} specified as parameter and
+     * write it to 1.xml file.
+     *
+     * @param entries the list of entry.
+     * @param fileName the output file.
+     */
+    public void createXML(List<Entry> entries, String fileName) {
 
-        writeXMLFile(doc, fileName);
-    }
-
-    public void domToXSLT(String fromXml, String toXml) {
-        SAXBuilder parser = new SAXBuilder();
-        File fromFile = new File(fromXml);
-
-        try {
-            Document fDoc = parser.build(fromFile);
-            Element root = fDoc.getRootElement();
-            List<Element> children = root.getChildren();
-
-            root = new Element("entries");
-            Document tDoc = new Document(root);
-            for (Element e : children) {
-                root.addContent(new Element("entry").setAttribute("field", e.getChildText("field")));
+        XMLStreamWriter writer;
+        try (FileWriter fw = new FileWriter(fileName)) {
+            writer = oFactory.createXMLStreamWriter(fw);
+            writer.writeStartDocument();
+            writer.writeStartElement("entries");
+            for (Entry e : entries) {
+                writer.writeStartElement("entry");
+                writer.writeStartElement("field");
+                writer.writeCharacters(String.valueOf(e.getField()));
+                writer.writeEndElement();
+                writer.writeEndElement();
             }
-            writeXMLFile(tDoc, toXml);
-        } catch (JDOMException | IOException e) {
+            writer.writeEndElement();
+            writer.writeEndDocument();
+            writer.flush();
+            writer.close();
+        } catch (XMLStreamException | IOException e) {
             LOG.error(e.getMessage(), e);
         }
     }
 
-    public int sumOfAttributeValues(String fileName, String attributeName) {
-        SAXBuilder parser = new SAXBuilder();
-        File file = new File(fileName);
-        int result = 0;
-        try {
-            Document doc = parser.build(file);
-            List<Element> elements = doc.getRootElement().getChildren();
-            for (Element e : elements) {
-                result += Integer.valueOf(e.getAttributeValue(attributeName));
+    public void xmlToXSLT(String fromXml, String toXml) {
+        List<String> data = new ArrayList<>();
+        try (FileInputStream fis = new FileInputStream(fromXml);
+             FileWriter fw = new FileWriter(toXml)) {
+            XMLStreamReader reader = iFactory.createXMLStreamReader(fis);
+            int event;
+            while (reader.hasNext()) {
+                event = reader.next();
+                if (event == XMLEvent.START_ELEMENT && "field".equals(reader.getLocalName())) {
+                    data.add(reader.getElementText());
+                }
             }
-        } catch (JDOMException | IOException e) {
+            reader.close();
+            XMLStreamWriter writer = oFactory.createXMLStreamWriter(fw);
+            writer.writeStartDocument();
+            writer.writeStartElement("entries");
+            for (String str : data) {
+                writer.writeStartElement("entry");
+                writer.writeAttribute("field", str);
+                writer.writeEndElement();
+            }
+            writer.writeEndElement();
+            writer.writeEndDocument();
+            writer.flush();
+            writer.close();
+        } catch (XMLStreamException | IOException e) {
+            LOG.error(e.getMessage(), e);
+        }
+    }
+
+    public int sumOfAttributeValues(String fileName) {
+        int result = 0;
+        try (FileInputStream fis = new FileInputStream(fileName)) {
+            XMLStreamReader reader = iFactory.createXMLStreamReader(fis);
+            int event;
+            while (reader.hasNext()) {
+                event = reader.next();
+                if (event == XMLEvent.START_ELEMENT && "entry".equals(reader.getLocalName())) {
+                    result += Integer.valueOf(reader.getAttributeValue(0));
+                }
+            }
+        } catch (XMLStreamException | IOException e) {
             LOG.error(e.getMessage(), e);
         }
         return result;
-    }
-
-    private void writeXMLFile(Document doc, String fileName) {
-        try {
-            XMLOutputter outputter = new XMLOutputter();
-            outputter.setFormat(Format.getPrettyFormat());
-            FileWriter fw = new FileWriter(fileName);
-            outputter.output(doc, fw);
-        } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
-        }
     }
 }

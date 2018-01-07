@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Class for work with database.
@@ -30,6 +29,9 @@ public class DBService {
         this.password = password;
     }
 
+    /**
+     * Creates a table or if  the table already exist clear it.
+     */
     public void createTable() {
         try (Connection conn = DriverManager.getConnection(url, login, password);
              Statement st = conn.createStatement()) {
@@ -43,16 +45,25 @@ public class DBService {
         }
     }
 
+    /**
+     * Fills the table with values amount that specified as parameter.
+     *
+     * @param barrier the amount of values.
+     */
     public void fillTable(int barrier) {
         try (Connection conn = DriverManager.getConnection(url, login, password)) {
             String sql = "INSERT INTO test VALUES (?);";
             conn.setAutoCommit(false);
-            PreparedStatement st = conn.prepareStatement(sql);
-            for (int i = 1; i <= barrier; i++) {
-                st.setInt(1, i);
-                st.executeUpdate();
+            try (PreparedStatement st = conn.prepareStatement(sql)) {
+                for (int i = 1; i <= barrier; i++) {
+                    st.setInt(1, i);
+                    st.executeUpdate();
+                }
+                conn.commit();
+            } catch (SQLException e) {
+                conn.rollback();
+                LOG.error(e.getMessage(), e);
             }
-            conn.commit();
             conn.setAutoCommit(true);
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
