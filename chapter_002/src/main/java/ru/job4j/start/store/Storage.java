@@ -57,4 +57,11 @@ public interface Storage {
      * @return item with id like specified as parameter or null.
      */
     Item findById(String id);
+
+    /**
+     * Closes connection to the storage.
+     *
+     * @throws UnsupportedOperationException if operation not supported.
+     */
+    void close() throws UnsupportedOperationException;
 }

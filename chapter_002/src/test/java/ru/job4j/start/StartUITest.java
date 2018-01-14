@@ -3,6 +3,7 @@ package ru.job4j.start;
 import ru.job4j.models.Item;
 
 import org.junit.Test;
+import ru.job4j.start.store.DBStorage;
 import ru.job4j.start.store.UserStore;
 
 import static org.hamcrest.core.Is.is;
@@ -47,8 +48,8 @@ public class StartUITest {
 	 */
 	@Test
 	public void whenUserDeleteItemThenTrackerHasNoItem() {
-		Tracker tracker = new Tracker(new UserStore());
-		//Added item cleary.
+		Tracker tracker = new Tracker(new DBStorage());
+		//Added item clearly.
 		Item item = tracker.add(new Item("test", "test desc", System.currentTimeMillis()));
 		// Stub for input system.
 		Input input = new StubInput(new String[] {"4", item.getId(), "7"});

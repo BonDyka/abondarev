@@ -19,7 +19,7 @@ public class UserStore implements Storage {
     private ArrayList<Item> items = new ArrayList<>(100);
 
     /**
-     * <@inheritedDoc>.
+     * {@inheritedDoc}.
      *
      * @param item for adding
      */
@@ -29,7 +29,7 @@ public class UserStore implements Storage {
     }
 
     /**
-     * <@inheritedDoc>.
+     * {@inheritedDoc}.
      *
      * @param item the item with updated data.
      */
@@ -44,7 +44,7 @@ public class UserStore implements Storage {
     }
 
     /**
-     * <@inheritedDoc>.
+     * {@inheritedDoc}.
      *
      * @param item the item for removing.
      */
@@ -59,7 +59,7 @@ public class UserStore implements Storage {
     }
 
     /**
-     * <@inheritedDoc>.
+     * {@inheritedDoc}.
      *
      * @return list of all items in storage.
      */
@@ -69,7 +69,7 @@ public class UserStore implements Storage {
     }
 
     /**
-     * <@inheritedDoc>.
+     * {@inheritedDoc}.
      *
      * @param name the parameter for searching items.
      * @return list of items that have name like specified as parameter
@@ -87,7 +87,7 @@ public class UserStore implements Storage {
     }
 
     /**
-     * <@inheritedDoc>.
+     * {@inheritedDoc}.
      *
      * @param id the id for search item.
      * @return item with id like specified as parameter or null.
@@ -102,5 +102,14 @@ public class UserStore implements Storage {
             }
         }
         return result;
+    }
+
+    /**
+     * {@inheritedDoc}.
+     * @throws UnsupportedOperationException
+     */
+    @Override
+    public void close() throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("Not support.");
     }
 }
