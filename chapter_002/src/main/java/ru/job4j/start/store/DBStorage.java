@@ -57,10 +57,13 @@ public class DBStorage implements Storage {
             ps.setString(2, item.getName());
             ps.setString(3, item.getDesc());
             ps.setTimestamp(4, new Timestamp(item.getCreate()));
-            if (!ps.execute()) {
-                this.conn.rollback();
-            }
+            ps.execute();
         } catch (SQLException e) {
+            try {
+                this.conn.rollback();
+            } catch (SQLException e1) {
+                LOG.error(e1.getMessage(), e1);
+            }
             LOG.error(e.getMessage(), e);
         }
     }
@@ -75,7 +78,7 @@ public class DBStorage implements Storage {
             try {
                 conn.rollback();
             } catch (SQLException e1) {
-                LOG.error(e.getMessage(), e);
+                LOG.error(e1.getMessage(), e1);
             }
             LOG.error(e.getMessage(), e);
         }
