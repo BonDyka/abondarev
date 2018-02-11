@@ -1,8 +1,23 @@
 # используем язык java. Travis CI поддерживает другие языки тоже.
 language: java
-# используем режим обычного пользователя для сборки проекта.
-sudo: false
+# JDK versios support
+jdk:
+  - oraclejdk7
+  - oraclejdk8
+addons:
+  postgresql: "9.4"
 
+# используем режим обычного пользователя для сборки проекта.
+sudo: required
+
+services:
+  - postgresql
+  script: ant test
+
+  before_script:
+    - psql -c "create database teste2;" -U postgres
+    - psql -c "create schema trabalho;" -U postgres
+    - psql -c "set search_path to 'trabalho'" -U postgres
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонни сервис https://codecov.io/
 after_success:
