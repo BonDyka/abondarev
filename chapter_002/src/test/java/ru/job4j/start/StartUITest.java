@@ -48,7 +48,7 @@ public class StartUITest {
 	 */
 	@Test
 	public void whenUserDeleteItemThenTrackerHasNoItem() {
-		Tracker tracker = new Tracker(new DBStorage());
+		Tracker tracker = new Tracker(new UserStore());
 		//Added item clearly.
 		Item item = tracker.add(new Item("test", "test desc", System.currentTimeMillis()));
 		// Stub for input system.
