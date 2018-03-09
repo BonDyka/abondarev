@@ -13,8 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
+ * Start servlet for CRUD app.
+ *
  * @author Alexander Bondarev(mailto:bondarew2507@gmail.com).
  * @since 03.03.2018.
  */
@@ -26,52 +29,36 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("login");
+        List<User> users = this.store.getAll();
+        StringBuilder sb = new StringBuilder("<table cellspacing='2px' style='border:1px solid black'>");
+        sb.append("<tr><th>Name</th><th>Login</th><th>Email</th><th>Create date</th><th>Actions<th></tr>");
+        for (User user : users) {
+            sb.append("<tr><td>").append(user.getName()).append("</td><td>").append(user.getLogin())
+              .append("</td><td>").append(user.getEmail()).append("</td><td>").append(user.getCreateDate())
+              .append("</td><td>")
+              .append("<a href='").append(req.getContextPath()).append("/edit?login=").append(user.getLogin()).append("'>Edit</a><br/>")
+              .append("<a href='").append(req.getContextPath()).append("/delete?login=").append(user.getLogin()).append("'>Delete</a>")
+              .append("</td></tr>");
+        }
+        sb.append("</table>");
+
         resp.setContentType("text/html");
         PrintWriter pw = new PrintWriter(resp.getOutputStream());
-        if (login != null) {
-            User user = this.store.get(login);
-            if (user != null) {
-                pw.append(user.toString());
-            } else {
-                pw.append(String.format("User with login=%s not found.", login));
-            }
-        } else {
-            pw.append("Enter login of searched user.");
-        }
+        pw.append("<!DOCTYPE html>")
+          .append("<html>")
+          .append("<head><title>User info storage</title></head>")
+          .append("<body><div align='center'><h1>User Info Storage</h1></div>")
+          .append("<div align='center'>")
+          .append(sb.toString())
+          .append("</div>")
+          .append("<a href='").append(req.getContextPath()).append("/add'>Add user</add>")
+          .append("</body></html>");
+
         pw.flush();
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        String login = req.getParameter("login");
-        String email = req.getParameter("email");
-        if (name != null && login != null && email != null) {
-            this.store.add(new User(name, login, email, new Timestamp(System.currentTimeMillis())));
-        }
-        doGet(req, resp);
-    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("login");
-        String email = req.getParameter("email");
-        if (login != null && email != null) {
-            User stored = this.store.get(login);
-            if (stored != null) {
-                this.store.edit(new User("not name", login, email, new Timestamp(0)));
-            }
-        }
-        doGet(req, resp);
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("login");
-        if (login != null) {
-            this.store.delete(login);
-        }
         doGet(req, resp);
     }
 }

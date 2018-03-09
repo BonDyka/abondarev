@@ -2,6 +2,8 @@ package ru.job4j.sj.store;
 
 import ru.job4j.sj.models.User;
 
+import java.util.List;
+
 /**
  * Main interface for user storage.
  *
@@ -17,6 +19,8 @@ public interface IStorage {
     void delete(String login);
 
     User get(String login);
+
+    List<User> getAll();
 
     void close();
 }
