@@ -113,7 +113,7 @@ public class UserStore implements IStorage {
 
     @Override
     public List<User> getAll() {
-        List <User> result = new ArrayList<>();
+        List<User> result = new ArrayList<>();
         try (Connection conn = this.dataSource.getConnection();
              Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery("SELECT * FROM users;")) {

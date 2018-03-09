@@ -28,7 +28,7 @@ public class DeleteServlet extends HttpServlet {
         String login = req.getParameter("login");
         if (login != null) {
             this.store.delete(login);
-            LOG.info("Request on deleting user "+ login +" from the store");
+            LOG.info(String.format("Request on deleting user %s from the store", login));
         }
         req.getRequestDispatcher("/").forward(req, resp);
     }
