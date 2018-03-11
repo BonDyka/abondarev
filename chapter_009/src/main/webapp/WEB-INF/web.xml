@@ -1,43 +1,41 @@
 <web-app>
-    <!--
     <servlet>
-        <servlet-name>UsersServlet</servlet-name>
-        <servlet-class>ru.job4j.sj.servlets.UsersServlet</servlet-class>
+        <servlet-name>Users View Controller</servlet-name>
+        <servlet-class>ru.job4j.sj.servlets.UsersViewController</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>UsersServlet</servlet-name>
+        <servlet-name>Users View Controller</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    -->
 
     <servlet>
-        <servlet-name>AddServlet</servlet-name>
-        <servlet-class>ru.job4j.sj.servlets.AddServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
+        <servlet-name>Add User Controller</servlet-name>
+        <servlet-class>ru.job4j.sj.servlets.AddUserController</servlet-class>
+        <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AddServlet</servlet-name>
+        <servlet-name>Add User Controller</servlet-name>
         <url-pattern>/add</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>EditServlet</servlet-name>
-        <servlet-class>ru.job4j.sj.servlets.EditServlet</servlet-class>
+        <servlet-name>Edit User Controller</servlet-name>
+        <servlet-class>ru.job4j.sj.servlets.EditUserController</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EditServlet</servlet-name>
+        <servlet-name>Edit User Controller</servlet-name>
         <url-pattern>/edit</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>DeleteServlet</servlet-name>
-        <servlet-class>ru.job4j.sj.servlets.DeleteServlet</servlet-class>
+        <servlet-name>Delete User Controller</servlet-name>
+        <servlet-class>ru.job4j.sj.servlets.DeleteUserController</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>DeleteServlet</servlet-name>
+        <servlet-name>Delete User Controller</servlet-name>
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
 

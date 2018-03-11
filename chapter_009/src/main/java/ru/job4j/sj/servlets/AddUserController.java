@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Timestamp;
 
 /**
@@ -20,11 +19,16 @@ import java.sql.Timestamp;
  * @author Alexander Bondarev(mailto:bondarew2507@gmail.com).
  * @since 09.03.2018.
  */
-public class AddServlet extends HttpServlet {
+public class AddUserController extends HttpServlet {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AddServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AddUserController.class);
 
     private final IStorage store = UserStore.getInstance();
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/WEB-INF/views/AddUser.jsp").forward(req, resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,6 +39,6 @@ public class AddServlet extends HttpServlet {
             this.store.add(new User(name, login, email, new Timestamp(System.currentTimeMillis())));
             LOG.info("Request on add user to the store.");
         }
-        resp.sendRedirect(String.format("%s/index.jsp", req.getContextPath()));
+        resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 }

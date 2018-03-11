@@ -17,9 +17,9 @@ import java.io.IOException;
  * @author Alexander Bondarev(mailto:bondarew2507@gmail.com).
  * @since 08.03.2018.
  */
-public class DeleteServlet extends HttpServlet {
+public class DeleteUserController extends HttpServlet {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DeleteServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DeleteUserController.class);
 
     private final IStorage store = UserStore.getInstance();
 
@@ -30,6 +30,6 @@ public class DeleteServlet extends HttpServlet {
             this.store.delete(login);
             LOG.info(String.format("Request on deleting user %s from the store", login));
         }
-        resp.sendRedirect(String.format("%s/index.jsp", req.getContextPath()));
+        resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 }

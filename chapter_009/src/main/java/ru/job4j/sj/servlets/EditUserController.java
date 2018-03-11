@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,13 +21,19 @@ import java.text.SimpleDateFormat;
  * @author Alexander Bondarev(mailto:bondarew2507@gmail.com).
  * @since 08.03.2018.
  */
-public class EditServlet extends HttpServlet {
+public class EditUserController extends HttpServlet {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EditServlet.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EditUserController.class);
 
     private final IStorage store = UserStore.getInstance();
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("user", this.store.get(req.getParameter("login")));
+        req.getRequestDispatcher("/WEB-INF/views/EditUser.jsp").forward(req, resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,6 +49,6 @@ public class EditServlet extends HttpServlet {
                 LOG.error(e.getMessage(), e);
             }
         }
-        resp.sendRedirect(String.format("%s/index.jsp", req.getContextPath()));
+        resp.sendRedirect(String.format("%s/", req.getContextPath()));
     }
 }

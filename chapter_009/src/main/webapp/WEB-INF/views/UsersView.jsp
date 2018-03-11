@@ -1,5 +1,4 @@
-<%@ page import="ru.job4j.sj.models.User" %>
-<%@ page import="ru.job4j.sj.store.UserStore" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -33,27 +32,27 @@
           <th>Create date</th>
           <th colspan="2">Actions</th>
         </tr>
-        <% for (User user : UserStore.getInstance().getAll()) {%>
+        <c:forEach items="${users}" var="user">
         <tr>
-          <td><%=user.getName() %></td>
-          <td><%=user.getLogin() %></td>
-          <td><%=user.getEmail() %></td>
-          <td><%=user.getCreateDate().toString() %></td>
+          <td><c:out value="${user.name}"></c:out></td>
+          <td><c:out value="${user.login}"></c:out></td>
+          <td><c:out value="${user.email}"></c:out></td>
+          <td><c:out value="${user.createDate}"></c:out></td>
           <td class="actions">
-            <a href="<%=request.getContextPath() %>/edit.jsp?login=<%=user.getLogin()%>">
+            <a href="${pageContext.servletContext.contextPath}/edit?login=${user.login}">
               Edit
             </a>
           </td>
           <td class="actions">
-            <a href="<%=request.getContextPath() %>/delete?login=<%=user.getLogin()%>">
+            <a href="${pageContext.servletContext.contextPath}/delete?login=${user.login}">
               Delete
             </a>
           </td>
         </tr>
-        <% } %>
+        </c:forEach>
       </table>
     </div><br/>
-    <a href="<%=request.getContextPath()%>/add.jsp">Add user</a>
+    <a href="${pageContext.servletContext.contextPath}/add">Add user</a>
   </div>
 </div>
 
