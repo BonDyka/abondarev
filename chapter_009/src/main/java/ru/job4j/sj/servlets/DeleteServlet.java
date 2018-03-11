@@ -30,6 +30,6 @@ public class DeleteServlet extends HttpServlet {
             this.store.delete(login);
             LOG.info(String.format("Request on deleting user %s from the store", login));
         }
-        req.getRequestDispatcher("/").forward(req, resp);
+        resp.sendRedirect(String.format("%s/index.jsp", req.getContextPath()));
     }
 }

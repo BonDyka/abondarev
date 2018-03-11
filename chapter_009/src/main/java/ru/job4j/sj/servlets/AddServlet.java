@@ -27,24 +27,6 @@ public class AddServlet extends HttpServlet {
     private final IStorage store = UserStore.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter pw = new PrintWriter(resp.getOutputStream());
-        pw.append("<!DOCTYPE html>")
-          .append("<html><head><title>Add user</title></head></body>")
-          .append("<h1 align='center'>Add user form</h1>")
-          .append("<div align='center'><form action='").append(req.getContextPath()).append("/add' method='post'>")
-          .append("Name <input type='text' name='name'><br/>")
-          .append("Login<input type='text' name='login'><br/>")
-          .append("Email<input type='text' name='email'><br/>")
-          .append("<input type='submit'>")
-          .append("</form>")
-          .append("</body></html>");
-
-        pw.flush();
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String login = req.getParameter("login");
@@ -53,6 +35,6 @@ public class AddServlet extends HttpServlet {
             this.store.add(new User(name, login, email, new Timestamp(System.currentTimeMillis())));
             LOG.info("Request on add user to the store.");
         }
-        req.getRequestDispatcher("/").forward(req, resp);
+        resp.sendRedirect(String.format("%s/index.jsp", req.getContextPath()));
     }
 }
