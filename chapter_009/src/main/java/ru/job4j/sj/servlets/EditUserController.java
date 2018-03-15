@@ -2,6 +2,7 @@ package ru.job4j.sj.servlets;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.job4j.sj.models.Role;
 import ru.job4j.sj.models.User;
 import ru.job4j.sj.store.IStorage;
 import ru.job4j.sj.store.UserStore;
@@ -32,6 +33,9 @@ public class EditUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("user", this.store.get(req.getParameter("login")));
+        User currentUser = this.store.get((String) req.getSession(false).getAttribute("login"));
+        req.setAttribute("roles", this.store.getRoles());
+        req.setAttribute("currentUser", currentUser);
         req.getRequestDispatcher("/WEB-INF/views/EditUser.jsp").forward(req, resp);
     }
 
@@ -39,12 +43,15 @@ public class EditUserController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String login = req.getParameter("login");
+        String password = req.getParameter("password");
         String email = req.getParameter("email");
         String createDate = req.getParameter("create");
+        Role role = this.store.getRole(Integer.parseInt(req.getParameter("role_id")));
 
         if (name != null && login != null && email != null && createDate != null) {
             try {
-                this.store.edit(new User(name, login, email, new Timestamp(format.parse(createDate).getTime())));
+                this.store.edit(new User(name, login, password, email,
+                        new Timestamp(format.parse(createDate).getTime()), role));
             } catch (ParseException e) {
                 LOG.error(e.getMessage(), e);
             }

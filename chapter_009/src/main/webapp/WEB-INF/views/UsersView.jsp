@@ -32,27 +32,68 @@
           <th>Create date</th>
           <th colspan="2">Actions</th>
         </tr>
-        <c:forEach items="${users}" var="user">
-        <tr>
-          <td><c:out value="${user.name}"></c:out></td>
-          <td><c:out value="${user.login}"></c:out></td>
-          <td><c:out value="${user.email}"></c:out></td>
-          <td><c:out value="${user.createDate}"></c:out></td>
-          <td class="actions">
-            <a href="${pageContext.servletContext.contextPath}/edit?login=${user.login}">
-              Edit
-            </a>
-          </td>
-          <td class="actions">
-            <a href="${pageContext.servletContext.contextPath}/delete?login=${user.login}">
-              Delete
-            </a>
-          </td>
-        </tr>
-        </c:forEach>
+        <c:choose>
+          <c:when test="${currentUser.role.name == 'admin'}">
+            <c:forEach items="${users}" var="user">
+              <tr>
+                <td><c:out value="${user.name}"/></td>
+                <td><c:out value="${user.login}"/></td>
+                <td><c:out value="${user.email}"/></td>
+                <td><c:out value="${user.createDate}"/></td>
+                <td class="actions">
+                  <a href="${pageContext.servletContext.contextPath}/edit?login=${user.login}">
+                    Edit
+                  </a>
+                </td>
+                <td class="actions">
+                  <a href="${pageContext.servletContext.contextPath}/delete?login=${user.login}">
+                    Delete
+                  </a>
+                </td>
+              </tr>
+            </c:forEach>
+          </c:when>
+
+          <c:otherwise>
+            <c:forEach items="${users}" var="user">
+              <tr>
+                <td><c:out value="${user.name}"/></td>
+                <td><c:out value="${user.login}"/></td>
+                <td><c:out value="${user.email}"/></td>
+                <td><c:out value="${user.createDate}"/></td>
+                <c:choose>
+                  <c:when test="${user.login == currentUser.login}">
+                    <td class="actions">
+                      <a href="${pageContext.servletContext.contextPath}/edit?login=${user.login}">
+                        Edit
+                      </a>
+                    </td>
+                    <td class="actions">
+                      <a href="${pageContext.servletContext.contextPath}/delete?login=${user.login}">
+                        Delete
+                      </a>
+                    </td>
+                  </c:when>
+
+                  <c:otherwise>
+                    <td class="actions">
+                      Edit
+                    </td>
+                    <td>
+                      Delete
+                    </td>
+                  </c:otherwise>
+                </c:choose>
+              </tr>
+            </c:forEach>
+          </c:otherwise>
+        </c:choose>
+        
       </table>
     </div><br/>
-    <a href="${pageContext.servletContext.contextPath}/add">Add user</a>
+    <c:if test="${currentUser.role.name == 'admin'}">
+      <a href="${pageContext.servletContext.contextPath}/add">Add user</a>
+    </c:if>
   </div>
 </div>
 

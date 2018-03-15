@@ -21,8 +21,22 @@
           <td><input type="text" name="login"></td>
         </tr>
         <tr>
+          <td>Password</td>
+          <td><input type="password" name="password"></td>
+        </tr>
+        <tr>
           <td>Email</td>
           <td><input type="text" name="email"></td>
+        </tr>
+        <tr>
+          <td>Role</td>
+          <td>
+            <select name="role_id">
+              <c:forEach items="${roles}" var="role">
+                <option value="${role.id}"><c:out value="${role.name}"/></option>
+              </c:forEach>
+            </select>
+          </td>
         </tr>
         <tr>
           <td colspan="2"><input type="submit" name="Add user"></td>

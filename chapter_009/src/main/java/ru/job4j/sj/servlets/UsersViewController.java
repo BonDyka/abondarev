@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -25,6 +26,8 @@ public class UsersViewController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String currentUserLogin = (String) req.getSession(false).getAttribute("login");
+        req.setAttribute("currentUser", this.store.get(currentUserLogin));
         req.setAttribute("users", this.store.getAll());
         req.getRequestDispatcher("/WEB-INF/views/UsersView.jsp").forward(req, resp);
     }

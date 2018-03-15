@@ -14,15 +14,22 @@ public class User {
 
     private final String login;
 
+    private final String password;
+
     private final String email;
 
     private final Timestamp createDate;
 
-    public User(final String name, final String login, final String email, final Timestamp createDate) {
+    private final Role role;
+
+    public User(final String name, final String login, final String password,
+                final String email, final Timestamp createDate, final Role role) {
         this.name = name;
         this.login = login;
+        this.password = password;
         this.email = email;
         this.createDate = createDate;
+        this.role = role;
     }
 
     public String getName() {
@@ -33,6 +40,10 @@ public class User {
         return login;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -41,9 +52,7 @@ public class User {
         return createDate;
     }
 
-    @Override
-    public String toString() {
-        return String.format("User[name:%s, login:%s, email:%s, created: %s]", this.name, this.login,
-                this.email, this.createDate.toString());
+    public Role getRole() {
+        return role;
     }
 }
