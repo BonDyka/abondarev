@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
+ * Servlet for authorisation.
+ *
  * @author Alexander Bondarev(mailto:bondarew2507@gmail.com).
  * @since 11.03.2018.
  */
@@ -33,7 +35,7 @@ public class SignInController extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-        if (!login.equals("") && !password.equals("")) {
+        if ((login != null && !login.isEmpty()) && (password != null && !password.isEmpty())) {
             User user = this.store.get(login);
             if (user != null && user.getPassword().equals(password)) {
                 HttpSession session = req.getSession();
