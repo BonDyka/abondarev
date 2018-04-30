@@ -5,11 +5,14 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.sj.models.Role;
 import ru.job4j.sj.models.User;
+import ru.job4j.sj.store.NotCompleteOperationException;
 import ru.job4j.sj.store.UserStore;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -21,16 +24,24 @@ import static org.mockito.Mockito.*;
 public class CRUDControllersTest {
     private HttpServletRequest request = mock(HttpServletRequest.class);
     private HttpServletResponse response = mock(HttpServletResponse.class);
+    private ServletOutputStream outputStream = mock(ServletOutputStream.class);
+    private HttpSession session = mock(HttpSession.class);
 
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         when(request.getParameter("name")).thenReturn("test");
         when(request.getParameter("login")).thenReturn("test");
         when(request.getParameter("password")).thenReturn("test");
         when(request.getParameter("role_id")).thenReturn("2");
+        when(request.getParameter("country")).thenReturn("1");
+        when(request.getParameter("city")).thenReturn("2");
+        when(response.getOutputStream()).thenReturn(outputStream);
+        when(request.getSession(false)).thenReturn(session);
+        when(session.getAttribute("login")).thenReturn("test");
     }
     @After
     public void shutDown() {
+        UserStore.getInstance().delete("test");
         this.request = null;
         this.response = null;
     }
@@ -41,18 +52,24 @@ public class CRUDControllersTest {
         when(request.getParameter("email")).thenReturn("test@email.ru");
 
         controller.doPost(request, response);
-        String result = UserStore.getInstance().getAll().get(1).getLogin();
 
         verify(request, atLeastOnce()).getParameter("login");
-
-        assertThat(result, is("test"));
+        verify(request, atLeastOnce()).getParameter("name");
+        verify(request, atLeastOnce()).getParameter("password");
+        verify(request, atLeastOnce()).getParameter("email");
+        verify(request, atLeastOnce()).getParameter("city");
+        verify(request, atLeastOnce()).getParameter("country");
     }
 
     @Test
     public void whenEditUserThanItShouldBeChanged() throws ServletException, IOException {
         Role role = new Role();
         role.setId(2);
-        UserStore.getInstance().add(new User("test", "test", "test", "test", new Timestamp(1L), role));
+        try {
+            UserStore.getInstance().add(new User("test", "test", "test", "test", "Russia", "Moscow", new Timestamp(1L), role));
+        } catch (NotCompleteOperationException e) {
+            e.printStackTrace();
+        }
         EditUserController controller = new EditUserController();
         String expected = "test2@email.ru";
         when(request.getParameter("email")).thenReturn(expected);
@@ -61,6 +78,13 @@ public class CRUDControllersTest {
         controller.doPost(this.request, this.response);
         String result = UserStore.getInstance().get("test").getEmail();
 
+        verify(request, atLeastOnce()).getParameter("login");
+        verify(request, atLeastOnce()).getParameter("name");
+        verify(request, atLeastOnce()).getParameter("password");
+        verify(request, atLeastOnce()).getParameter("email");
+        verify(request, atLeastOnce()).getParameter("city");
+        verify(request, atLeastOnce()).getParameter("country");
+
         assertThat(result, is(expected));
     }
 
@@ -68,13 +92,15 @@ public class CRUDControllersTest {
     public void whenDeleteUserThanItShouldBeRemoved() throws ServletException, IOException {
         Role role = new Role();
         role.setId(2);
-        UserStore.getInstance().add(new User("test", "test", "test", "test", new Timestamp(1L), role));
+        try {
+            UserStore.getInstance().add(new User("test", "test", "test", "test", "Russia", "Moscow", new Timestamp(1L), role));
+        } catch (NotCompleteOperationException e) {
+            e.printStackTrace();
+        }
         DeleteUserController controller = new DeleteUserController();
-        int expected = UserStore.getInstance().getAll().size() - 1;
 
         controller.doGet(request, response);
-        int result = UserStore.getInstance().getAll().size();
 
-        assertThat(result, is(expected));
+        verify(request, atLeastOnce()).getParameter("login");
     }
 }

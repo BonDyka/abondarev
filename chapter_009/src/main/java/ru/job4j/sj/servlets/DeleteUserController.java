@@ -2,14 +2,15 @@ package ru.job4j.sj.servlets;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.job4j.sj.store.IStorage;
 import ru.job4j.sj.store.UserStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * Delete user servlet
@@ -21,15 +22,26 @@ public class DeleteUserController extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(DeleteUserController.class);
 
-    private final IStorage store = UserStore.getInstance();
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("login");
-        if (login != null) {
-            this.store.delete(login);
-            LOG.info(String.format("Request on deleting user %s from the store", login));
+        HttpSession session = req.getSession(false);
+        String nextPage = String.format("%s/view", req.getContextPath());
+        if (session != null) {
+            String currentUserLogin = (String) session.getAttribute("login");
+            String login = req.getParameter("login");
+            if (login != null) {
+                UserStore.getInstance().delete(login);
+                LOG.info(String.format("Request on deleting user %s from the store", login));
+            }
+            if (currentUserLogin.equals(login)) {
+                nextPage = "/";
+                session.invalidate();
+            }
         }
-        resp.sendRedirect(String.format("%s/", req.getContextPath()));
+        resp.setContentType("text/json");
+        PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        writer.append(nextPage);
+        writer.flush();
+
     }
 }

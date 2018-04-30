@@ -6,36 +6,46 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Users View Controller</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/view</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Add User Controller</servlet-name>
+        <servlet-name>JsonPlaceController</servlet-name>
+        <servlet-class>ru.job4j.sj.servlets.JsonPlaceController</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JsonPlaceController</servlet-name>
+        <url-pattern>/places</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddUserController</servlet-name>
         <servlet-class>ru.job4j.sj.servlets.AddUserController</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Add User Controller</servlet-name>
+        <servlet-name>AddUserController</servlet-name>
         <url-pattern>/add</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Edit User Controller</servlet-name>
+        <servlet-name>EditUserController</servlet-name>
         <servlet-class>ru.job4j.sj.servlets.EditUserController</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Edit User Controller</servlet-name>
+        <servlet-name>EditUserController</servlet-name>
         <url-pattern>/edit</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Delete User Controller</servlet-name>
+        <servlet-name>DeleteUserController</servlet-name>
         <servlet-class>ru.job4j.sj.servlets.DeleteUserController</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Delete User Controller</servlet-name>
+        <servlet-name>DeleteUserController</servlet-name>
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
 
@@ -47,13 +57,4 @@
         <servlet-name>SigninController</servlet-name>
         <url-pattern>/signin</url-pattern>
     </servlet-mapping>
-
-    <filter>
-        <filter-name>AuthFilter</filter-name>
-        <filter-class>ru.job4j.sj.servlets.AuthFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>AuthFilter</filter-name>
-        <url-pattern>*</url-pattern>
-    </filter-mapping>
 </web-app>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>User Info Store</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body>
+<div id="main">
+    <div class="navbar bg-dark">
+        <a class="navbar-brand" href="/">
+            <img src="images/logo2.png">
+            <span class="display-4 align-middle">User Info Store</span>
+        </a>
+        <!-- Nav pills -->
+        <ul class="nav nav-pills mx-auto" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="pill" href="#assign">Authorization</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#contacts">Contacts</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div id="assign" class="container tab-pane active mt-5">
+            <div class="container w-75 form-decor">
+                <h2 class="text-center">Authorization</h2>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs justify-content-center" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#signin">Sign In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#signup">Sign Up</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div id="signin" class="container tab-pane active"><br>
+                        <h3 class="text-center">Sign In</h3>
+                        <div class="msg-box">
+                            <p id="msg"></p>
+                        </div>
+                        <div class="container">
+                            <form id="signInForm" method="post">
+                                <div class="form-group">
+                                    <label for="log">Login:</label>
+                                    <input type="text" class="form-control" id="log" placeholder="Enter login" name="login">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd">Password:</label>
+                                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
+                                </div>
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" name="remember"> Remember me
+                                    </label>
+                                </div>
+                                <button type="button" class="btn btn-primary w-100" id="in">Sign In</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="signup" class="container tab-pane fade"><br>
+                        <h3 class="text-center">Sign Up</h3>
+                        <div class="msg-box">
+                            <p id="msg2"></p>
+                        </div>
+                        <div class="container">
+                            <form id="signUpForm" method="post">
+                                <div class="form-group">
+                                    <label for="name">Name:</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="log1">Login:</label>
+                                    <input type="text" class="form-control" id="log1" placeholder="Enter login" name="login">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd">Password:</label>
+                                    <input type="password" class="form-control" id="pwd1" placeholder="Enter password" name="password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="country">Country:</label>
+                                    <select name="country" id="country" class="form-control">
+                                        <option value="">Choice your country</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">Country:</label>
+                                    <select name="city" id="city" class="form-control" disabled>
+                                        <option value="">Choice your city</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary w-100">Submit</button>
+                            </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+        <div id="about" class="container tab-pane fade"><br>
+            <h2>About project</h2>
+            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+        <div id="contacts" class="container tab-pane fade"><br>
+            <h2>Contacts</h2>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
