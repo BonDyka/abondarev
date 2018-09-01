@@ -26,5 +26,6 @@
 		<module>orderbook</module>
 		<module>bomberman</module>
 		<module>jobs_analyzer</module>
-	</modules>	
+        <module>music_venue</module>
+    </modules>
 </project>
