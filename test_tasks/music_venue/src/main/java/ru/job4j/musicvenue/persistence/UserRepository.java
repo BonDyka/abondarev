@@ -124,7 +124,7 @@ public class UserRepository implements Repository<User> {
 
     private void saveUser(Connection conn, User user) throws OperationNotCompleteException {
         try (
-                PreparedStatement ps =conn.prepareStatement("INSERT INTO users (login, password, address_id, role_id) VALUES (?, ?, ?, ?);",
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO users (login, password, address_id, role_id) VALUES (?, ?, ?, ?);",
                         Statement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, user.getLogin());
