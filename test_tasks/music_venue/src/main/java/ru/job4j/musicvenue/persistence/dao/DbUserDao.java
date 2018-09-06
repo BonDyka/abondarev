@@ -103,13 +103,14 @@ public class DbUserDao implements UserDao {
     public void update(User entity) throws PersistException {
         try (Connection conn = this.pool.getConnection();
              PreparedStatement ps = conn.prepareStatement(
-                     "UPDATE users SET login = ?, password = ?, address_id = ?, role_id = ?;"
+                     "UPDATE users SET login = ?, password = ?, address_id = ?, role_id = ? WHERE id = ?;"
              )
         ) {
             ps.setString(1, entity.getLogin());
             ps.setString(2, entity.getPassword());
             ps.setInt(3, entity.getAddress().getId());
             ps.setInt(4, entity.getRole().getId());
+            ps.setInt(5, entity.getId());
             ps.executeUpdate();
             try {
                 this.saveUsersMusic(entity);
@@ -181,17 +182,16 @@ public class DbUserDao implements UserDao {
         Connection conn = null;
         try {
             conn = this.pool.getConnection();
+            conn.setAutoCommit(false);
             PreparedStatement deleteStatement = conn.prepareStatement("DELETE FROM user_musics WHERE user_id = ?;");
             deleteStatement.setInt(1, entity.getId());
             deleteStatement.executeUpdate();
-            deleteStatement.close();
-            conn.setAutoCommit(false);
             PreparedStatement saveStatement = conn.prepareStatement(
                     "INSERT INTO user_musics (user_id, music_type_id) VALUES (?, ?)"
             );
             for (MusicType musicType : entity.getTypes()) {
                 saveStatement.setInt(1, entity.getId());
-                saveStatement.setInt(1, musicType.getId());
+                saveStatement.setInt(2, musicType.getId());
                 saveStatement.executeUpdate();
             }
             conn.commit();

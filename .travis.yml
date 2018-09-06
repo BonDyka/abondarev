@@ -5,7 +5,7 @@ sudo: false
 services:
   - postgresql
 
-before_script: - psql -c 'create database user_info;' -U postgres
+#before_script: - psql -c 'create database user_info;' -U postgres
 
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонни сервис https://codecov.io/
