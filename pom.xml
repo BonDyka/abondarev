@@ -24,6 +24,7 @@
 		<module>chapter_009</module>
 
 		<module>test_tasks</module>
+		<module>middle</module>
 	</modules>
 
 	<dependencies>
