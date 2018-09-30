@@ -5,7 +5,7 @@ sudo: false
 services:
   - postgresql
 
-before_script:
+before_install:
   psql -c 'create database user_info;' -U postgres
 
   psql -c 'create database music_venue;' -U postgres
