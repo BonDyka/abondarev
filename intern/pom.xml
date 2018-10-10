@@ -1,0 +1,14 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>loc.abondarev</groupId>
+    <artifactId>intern</artifactId>
+    <packaging>pom</packaging>
+    <version>2.0</version>
+
+    <modules>
+        <module>chapter_001</module>
+        <module>chapter_002</module>
+        <module>chapter_005</module>
+    </modules>
+</project>

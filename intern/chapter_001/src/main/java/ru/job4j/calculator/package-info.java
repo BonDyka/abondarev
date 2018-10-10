@@ -5,4 +5,4 @@
  * @version 2.0
  * @since 10.07.2017
  */
-package ru.job4j;
+package ru.job4j.calculator;
