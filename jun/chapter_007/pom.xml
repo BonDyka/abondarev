@@ -1,14 +1,13 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.job4j</groupId>
     <artifactId>multythreading</artifactId>
     <version>2.0</version>
     <name>chapter_007</name>
 
     <parent>
         <groupId>ru.job4j</groupId>
-        <artifactId>junior</artifactId>
+        <artifactId>jun</artifactId>
         <version>2.0</version>
     </parent>
 </project>

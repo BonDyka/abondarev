@@ -1,6 +1,6 @@
 <project>
     <parent>
-        <artifactId>junior</artifactId>
+        <artifactId>jun</artifactId>
         <groupId>ru.job4j</groupId>
         <version>2.0</version>
     </parent>
