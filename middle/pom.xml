@@ -11,6 +11,9 @@
 
     <artifactId>middle</artifactId>
     <packaging>pom</packaging>
+    <modules>
+        <module>hiber</module>
+    </modules>
 
 
 </project>
