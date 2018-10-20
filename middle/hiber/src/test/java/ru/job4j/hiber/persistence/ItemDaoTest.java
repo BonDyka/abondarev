@@ -68,7 +68,7 @@ public class ItemDaoTest {
     }
 
     @Test
-    public void whenTryUpdateExistingItemThenShouldUpdateIt () throws PersistException {
+    public void whenTryUpdateExistingItemThenShouldUpdateIt() throws PersistException {
         dao.saveOrUpdate(expected);
         expected.setDone(true);
 

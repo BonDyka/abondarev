@@ -35,7 +35,9 @@ public class ItemDao implements GenericDao<Item> {
             session.beginTransaction();
             result = session.get(Item.class, id);
         }
-        if (result == null) { throw new PersistException(String.format("User with id: %s doesn't exist!", id));}
+        if (result == null) {
+            throw new PersistException(String.format("User with id: %s doesn't exist!", id));
+        }
         return result;
     }
 
