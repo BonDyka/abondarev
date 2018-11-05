@@ -12,6 +12,7 @@
                 done BOOLEAN NOT NULL
             );
             INSERT INTO items(description, created, done) VALUES ('Test description', now(), false);
+            INSERT INTO items(description, created, done) VALUES ('Done test description', now(), true);
         </sql>
     </changeSet>
 </databaseChangeLog>

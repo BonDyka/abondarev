@@ -9,7 +9,7 @@ public class Database {
 
     private static SessionFactory factory;
 
-    private Database() {}
+    private Database() { }
 
     public void init() {
         factory = new Configuration().configure().buildSessionFactory();
