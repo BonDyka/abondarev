@@ -6,6 +6,7 @@ import org.junit.Test;
 import ru.job4j.hiber.models.Item;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -17,6 +18,7 @@ public class ItemDaoTest {
 
     @Before
     public void setUp() {
+        Database.INSTANCE.init();
         expected = new Item();
         expected.setDescription("New test description");
         expected.setCreated(new Timestamp(System.currentTimeMillis()));
@@ -33,6 +35,7 @@ public class ItemDaoTest {
         expected = null;
         theSameData = null;
         dao = null;
+        Database.INSTANCE.destroy();
     }
 
     @Test
@@ -51,7 +54,8 @@ public class ItemDaoTest {
     public void whenTrySaveNewItemThenShouldSaveIt() {
         dao.saveOrUpdate(expected);
 
-        Item result = dao.readAll().get(1);
+        List<Item> list = dao.readAll();
+        Item result = list.get(list.size() - 1);
 
         assertThat(result, is(expected));
     }
@@ -81,11 +85,12 @@ public class ItemDaoTest {
 
     @Test
     public void whenTryReadUndoneItemsThenShouldGetListOfIt() {
+        int startSize = dao.readUndone().size();
         expected.setDone(true);
         dao.saveOrUpdate(expected);
 
-        int sise = dao.readUndone().size();
+        int size = dao.readUndone().size();
 
-        assertTrue(sise == 1);
+        assertThat(size, is(startSize));
     }
 }

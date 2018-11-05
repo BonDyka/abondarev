@@ -8,11 +8,10 @@ import ru.job4j.hiber.models.Item;
 import java.util.List;
 
 public class ItemDao implements GenericDao<Item> {
-    private static final SessionFactory FACTORY = new Configuration().configure().buildSessionFactory();
 
     @Override
     public void saveOrUpdate(Item entity) {
-        try (Session session = FACTORY.openSession()) {
+        try (Session session = Database.INSTANCE.openSession()) {
             session.beginTransaction();
             session.saveOrUpdate(entity);
             session.getTransaction().commit();
@@ -21,7 +20,7 @@ public class ItemDao implements GenericDao<Item> {
 
     @Override
     public void delete(Item entity) {
-        try (Session session = FACTORY.openSession()) {
+        try (Session session = Database.INSTANCE.openSession()) {
             session.beginTransaction();
             session.delete(entity);
             session.getTransaction().commit();
@@ -31,7 +30,7 @@ public class ItemDao implements GenericDao<Item> {
     @Override
     public Item read(long id) throws PersistException {
         Item result;
-        try (Session session = FACTORY.openSession()) {
+        try (Session session = Database.INSTANCE.openSession()) {
             session.beginTransaction();
             result = session.get(Item.class, id);
         }
@@ -44,7 +43,7 @@ public class ItemDao implements GenericDao<Item> {
     @Override
     public List<Item> readUndone() {
         List<Item> result;
-        try (Session session = FACTORY.openSession()) {
+        try (Session session = Database.INSTANCE.openSession()) {
             session.beginTransaction();
             result = session.createQuery("from Item I where I.done = false", Item.class).list();
         }
@@ -54,7 +53,7 @@ public class ItemDao implements GenericDao<Item> {
     @Override
     public List<Item> readAll() {
         List<Item> result;
-        try (Session session = FACTORY.openSession()) {
+        try (Session session = Database.INSTANCE.openSession()) {
             session.beginTransaction();
             result = session.createQuery("from Item", Item.class).list();
         }
