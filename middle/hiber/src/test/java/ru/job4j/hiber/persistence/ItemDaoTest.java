@@ -48,10 +48,11 @@ public class ItemDaoTest {
     @Test(expected = PersistException.class)
     public void whenTryGetItemByInvalidId() throws PersistException {
         Item item = dao.read(5L);
+        System.out.println(item);
     }
 
     @Test
-    public void whenTrySaveNewItemThenShouldSaveIt() {
+    public void whenTrySaveNewItemThenShouldSaveIt() throws PersistException {
         dao.saveOrUpdate(expected);
 
         List<Item> list = dao.readAll();
@@ -61,7 +62,7 @@ public class ItemDaoTest {
     }
 
     @Test
-    public void whenTrySaveItemWithExistingDataThenShouldSaveItAsNewItemData() {
+    public void whenTrySaveItemWithExistingDataThenShouldSaveItAsNewItemData() throws PersistException {
 
         dao.saveOrUpdate(expected);
         int expectSize = dao.readAll().size();
@@ -84,7 +85,7 @@ public class ItemDaoTest {
     }
 
     @Test
-    public void whenTryReadUndoneItemsThenShouldGetListOfIt() {
+    public void whenTryReadUndoneItemsThenShouldGetListOfIt() throws PersistException {
         int startSize = dao.readUndone().size();
         expected.setDone(true);
         dao.saveOrUpdate(expected);

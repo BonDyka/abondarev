@@ -10,7 +10,7 @@ public interface GenericDao<T> {
 
     T read(long id) throws PersistException;
 
-    List<T> readUndone();
+    List<T> readUndone() throws PersistException;
 
-    List<T> readAll();
+    List<T> readAll() throws PersistException;
 }

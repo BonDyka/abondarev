@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.hiber.models.Item;
 import ru.job4j.hiber.persistence.ItemDao;
+import ru.job4j.hiber.persistence.PersistException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +38,7 @@ public class ViewController extends HttpServlet {
         }
     }
 
-    private List<Item> list(boolean all) {
+    private List<Item> list(boolean all) throws PersistException {
         List<Item> result;
         if (!all) {
             result = new ItemDao().readUndone();
