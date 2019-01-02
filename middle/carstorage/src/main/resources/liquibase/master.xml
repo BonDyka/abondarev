@@ -1,0 +1,112 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="001-create_car_body" author="abondarev">
+        <createTable tableName="car_body">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="type" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="002-create_transmissions" author="abondarev">
+        <createTable tableName="transmissions">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="type" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="003-create_engines" author="abondarev">
+        <createTable tableName="engines">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="type" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="volume" type="DOUBLE">
+                <constraints nullable="false" />
+            </column>
+            <column name="power" type="INT">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <addUniqueConstraint tableName="engines" columnNames="type, volume, power" />
+    </changeSet>
+
+    <changeSet id="004-create_cars" author="abondarev">
+        <createTable tableName="cars">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="body_id" type="INT">
+                <constraints nullable="false" foreignKeyName="cars_body_fk"
+                             references="car_body(id)" />
+            </column>
+            <column name="engine_id" type="INT">
+                <constraints nullable="false" foreignKeyName="cars_engine_fk"
+                             references="engines(id)" />
+            </column>
+            <column name="trns_id" type="INT">
+                <constraints nullable="false" foreignKeyName="cars_trns_fk"
+                             references="transmissions(id)" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="005-init_tables" author="abondarev">
+        <sql>
+            INSERT INTO engines(type, volume, power) SELECT 'DIESEL', 1.7, 190
+            WHERE NOT EXISTS (
+                SELECT type, volume, power FROM engines WHERE type='DIESEL' AND volume=1.7 AND power=190
+            );
+        </sql>
+        <sql>
+            INSERT INTO car_body(type) SELECT 'Hatchback'
+            WHERE NOT EXISTS (SELECT type FROM car_body WHERE type='Hatchback');
+
+            INSERT INTO car_body(type) SELECT 'Sedan'
+            WHERE NOT EXISTS (SELECT type FROM car_body WHERE type='Sedan');
+
+            INSERT INTO car_body(type) SELECT 'MPV'
+            WHERE NOT EXISTS (SELECT type FROM car_body WHERE type='MPV');
+
+            INSERT INTO car_body(type) SELECT 'SUV'
+            WHERE NOT EXISTS (SELECT type FROM car_body WHERE type='SUV');
+
+            INSERT INTO car_body(type) SELECT 'Crossover'
+            WHERE NOT EXISTS (SELECT type FROM car_body WHERE type='Crossover');
+
+            INSERT INTO car_body(type) SELECT 'Coupe'
+            WHERE NOT EXISTS (SELECT type FROM car_body WHERE type='Coupe');
+        </sql>
+        <sql>
+            INSERT INTO transmissions(type) SELECT 'Automatic'
+            WHERE NOT EXISTS (SELECT type FROM transmissions WHERE type='Automatic');
+
+            INSERT INTO transmissions(type) SELECT 'Manual'
+            WHERE NOT EXISTS (SELECT type FROM transmissions WHERE type='Manual');
+
+            INSERT INTO transmissions(type) SELECT 'CVT'
+            WHERE NOT EXISTS (SELECT type FROM transmissions WHERE type='CVT');
+
+            INSERT INTO transmissions(type) SELECT 'DCT'
+            WHERE NOT EXISTS (SELECT type FROM transmissions WHERE type='DCT');
+        </sql>
+        <sql>
+            INSERT INTO cars(name, body_id, engine_id, trns_id) VALUES ('test car', 2, 1, 3);
+        </sql>
+    </changeSet>
+</databaseChangeLog>
