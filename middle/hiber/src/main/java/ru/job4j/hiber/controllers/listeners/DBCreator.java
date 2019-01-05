@@ -8,7 +8,7 @@ import javax.servlet.ServletContextListener;
 public class DBCreator implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        Database.INSTANCE.init();
+        Database db = Database.INSTANCE;
     }
 
     @Override

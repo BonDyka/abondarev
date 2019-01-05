@@ -1,8 +1,6 @@
 package ru.job4j.hiber.persistence;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import ru.job4j.hiber.models.Item;
 
 import java.sql.Timestamp;
@@ -12,13 +10,20 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class ItemDaoTest {
+
+    private static final Database DB = Database.INSTANCE;
+
     private Item expected;
     private Item theSameData;
     private ItemDao dao;
 
+    @AfterClass
+    public static void destroy() {
+        DB.destroy();
+    }
+
     @Before
     public void setUp() {
-        Database.INSTANCE.init();
         expected = new Item();
         expected.setDescription("New test description");
         expected.setCreated(new Timestamp(System.currentTimeMillis()));
@@ -35,7 +40,6 @@ public class ItemDaoTest {
         expected = null;
         theSameData = null;
         dao = null;
-        Database.INSTANCE.destroy();
     }
 
     @Test

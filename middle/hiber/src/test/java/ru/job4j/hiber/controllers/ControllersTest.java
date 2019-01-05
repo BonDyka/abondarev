@@ -1,10 +1,7 @@
 package ru.job4j.hiber.controllers;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.job4j.hiber.persistence.Database;
-import ru.job4j.hiber.persistence.ItemDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
