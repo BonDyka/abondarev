@@ -16,19 +16,39 @@ public class ItemDao implements GenericDao<Item> {
 
     @Override
     public void saveOrUpdate(Item entity) {
+        Transaction tx = null;
         try (Session session = Database.INSTANCE.openSession()) {
-            session.beginTransaction();
+            tx = session.beginTransaction();
             session.saveOrUpdate(entity);
-            session.getTransaction().commit();
+            tx.commit();
+        } catch (Exception e) {
+            LOG.error("Transaction fail!", e);
+            if (tx != null) {
+                try {
+                    tx.rollback();
+                } catch (Exception e1) {
+                    LOG.error("Rollback failed!", e1);
+                }
+            }
         }
     }
 
     @Override
     public void delete(Item entity) {
+        Transaction tx = null;
         try (Session session = Database.INSTANCE.openSession()) {
-            session.beginTransaction();
+            tx = session.beginTransaction();
             session.delete(entity);
-            session.getTransaction().commit();
+            tx.commit();
+        } catch (Exception e) {
+            LOG.error("Transaction fail!", e);
+            if (tx != null) {
+                try {
+                    tx.rollback();
+                } catch (Exception e1) {
+                    LOG.error("Rollback failed!", e1);
+                }
+            }
         }
     }
 
@@ -59,15 +79,15 @@ public class ItemDao implements GenericDao<Item> {
 
     private <T> T tx(Function<Session, T> command) throws PersistException {
         Session session = Database.INSTANCE.openSession();
-        Transaction trn = session.beginTransaction();
+        Transaction tx = session.beginTransaction();
         try {
             return command.apply(session);
         } catch (Exception e) {
             LOG.error("Not complete operation", e);
-            trn.rollback();
+            tx.rollback();
             throw new PersistException("Not complete operation", e);
         } finally {
-            trn.commit();
+            tx.commit();
             session.close();
         }
     }
