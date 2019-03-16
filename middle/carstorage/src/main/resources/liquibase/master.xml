@@ -109,4 +109,71 @@
             INSERT INTO cars(name, body_id, engine_id, trns_id) VALUES ('test car', 2, 1, 3);
         </sql>
     </changeSet>
+
+    <changeSet id="006-add_users_table" author="abondarev">
+        <createTable tableName="users">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="login" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="fname" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="lname" type="VARCHAR(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="phone" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="007-add_table_announcements" author="abondarev">
+        <createTable tableName="announcements">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="author_id" type="INT">
+                <constraints nullable="false" foreignKeyName="author_id_fk"
+                            references="users(id)" />
+            </column>
+            <column name="car_id" type="INT">
+                <constraints nullable="false" foreignKeyName="car_id_fk"
+                             references="cars(id)"/>
+            </column>
+            <column name="price" type="INT">
+                <constraints nullable="false" />
+            </column>
+            <column name="status" type="BOOLEAN">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="008-add_photos_table" author="abondarev">
+        <createTable tableName="photos">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="path" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="announce_id" type="INT">
+                <constraints nullable="false" foreignKeyName="announce_id_fk"
+                             references="announcements(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="009-fill_users_start_values" author="abondarev">
+        <sql>
+            INSERT INTO users(login, password, fname, lname, phone)
+                VALUES ('admin', 'admin', 'admin', 'admin', '00000000000');
+        </sql>
+    </changeSet>
 </databaseChangeLog>
