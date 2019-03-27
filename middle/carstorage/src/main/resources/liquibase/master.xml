@@ -176,4 +176,9 @@
                 VALUES ('admin', 'admin', 'admin', 'admin', '00000000000');
         </sql>
     </changeSet>
+    <changeSet id="010-fill_announcements_test_values" author="abondarev">
+        <sql>
+            INSERT INTO announcements(author_id, car_id, price, status) VALUES ('1', '1', '125000', false);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
