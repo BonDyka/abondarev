@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.carstore.models.annotated.User;
+import ru.job4j.carstore.persistence.criterias.Criteria;
+import ru.job4j.carstore.persistence.criterias.UserByLogin;
 
 import java.util.List;
 
@@ -60,5 +62,14 @@ public class UserDaoTest {
         User result = this.dao.readById(this.user.getId());
 
         assertThat(result.getFname(), is(this.user.getFname()));
+    }
+
+    @Test
+    public void whenReadExistingUsersByLoginCriteriaThenShouldGetListWithThatUser() {
+        this.dao.saveOrUpdate(this.user);
+
+        List<User> result = this.dao.readByCriteria(new UserByLogin(this.user));
+
+        assertThat(result.get(0), is(this.user));
     }
 }
