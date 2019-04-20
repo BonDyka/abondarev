@@ -14,6 +14,7 @@
     <modules>
         <module>hiber</module>
         <module>carstorage</module>
+        <module>car-trade</module>
     </modules>
 
     <dependencies>
