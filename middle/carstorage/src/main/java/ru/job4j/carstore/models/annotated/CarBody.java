@@ -3,7 +3,7 @@ package ru.job4j.carstore.models.annotated;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "car_body")
+@Table(name = "carbodys")
 public class CarBody {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

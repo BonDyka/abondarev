@@ -4,7 +4,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
     <changeSet id="001-create_car_body" author="abondarev">
-        <createTable tableName="car_body">
+        <createTable tableName="carbodys">
             <column name="id" autoIncrement="true" type="BIGINT">
                 <constraints primaryKey="true" />
             </column>
@@ -53,7 +53,7 @@
             </column>
             <column name="body_id" type="INT">
                 <constraints nullable="false" foreignKeyName="cars_body_fk"
-                             references="car_body(id)" />
+                             references="carbodys(id)" />
             </column>
             <column name="engine_id" type="INT">
                 <constraints nullable="false" foreignKeyName="cars_engine_fk"
@@ -74,23 +74,23 @@
             );
         </sql>
         <sql>
-            INSERT INTO car_body(type) SELECT 'Hatchback'
-            WHERE NOT EXISTS (SELECT type FROM car_body WHERE type='Hatchback');
+            INSERT INTO carbodys(type) SELECT 'Hatchback'
+            WHERE NOT EXISTS (SELECT type FROM carbodys WHERE type='Hatchback');
 
-            INSERT INTO car_body(type) SELECT 'Sedan'
-            WHERE NOT EXISTS (SELECT type FROM car_body WHERE type='Sedan');
+            INSERT INTO carbodys(type) SELECT 'Sedan'
+            WHERE NOT EXISTS (SELECT type FROM carbodys WHERE type='Sedan');
 
-            INSERT INTO car_body(type) SELECT 'MPV'
-            WHERE NOT EXISTS (SELECT type FROM car_body WHERE type='MPV');
+            INSERT INTO carbodys(type) SELECT 'MPV'
+            WHERE NOT EXISTS (SELECT type FROM carbodys WHERE type='MPV');
 
-            INSERT INTO car_body(type) SELECT 'SUV'
-            WHERE NOT EXISTS (SELECT type FROM car_body WHERE type='SUV');
+            INSERT INTO carbodys(type) SELECT 'SUV'
+            WHERE NOT EXISTS (SELECT type FROM carbodys WHERE type='SUV');
 
-            INSERT INTO car_body(type) SELECT 'Crossover'
-            WHERE NOT EXISTS (SELECT type FROM car_body WHERE type='Crossover');
+            INSERT INTO carbodys(type) SELECT 'Crossover'
+            WHERE NOT EXISTS (SELECT type FROM carbodys WHERE type='Crossover');
 
-            INSERT INTO car_body(type) SELECT 'Coupe'
-            WHERE NOT EXISTS (SELECT type FROM car_body WHERE type='Coupe');
+            INSERT INTO carbodys(type) SELECT 'Coupe'
+            WHERE NOT EXISTS (SELECT type FROM carbodys WHERE type='Coupe');
         </sql>
         <sql>
             INSERT INTO transmissions(type) SELECT 'Automatic'
