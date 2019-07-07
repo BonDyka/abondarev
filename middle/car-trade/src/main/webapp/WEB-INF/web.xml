@@ -3,13 +3,19 @@
         <welcome-file>/pages/index.html</welcome-file>
     </welcome-file-list>
 
+    <listener>
+        <listener-class>
+            ru.job4j.cartrade.listeners.DBManagingListener
+        </listener-class>
+    </listener>
+
     <servlet>
         <servlet-name>AnnouncementsList</servlet-name>
         <servlet-class>ru.job4j.cartrade.controllers.ShowAnnouncements</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AnnouncementsList</servlet-name>
-        <url-pattern>/show_announces</url-pattern>
+        <url-pattern>/announces-list</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -19,5 +25,32 @@
     <servlet-mapping>
         <servlet-name>SignIn</servlet-name>
         <url-pattern>/sign_in</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SignUp</servlet-name>
+        <servlet-class>ru.job4j.cartrade.controllers.SignUp</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignUp</servlet-name>
+        <url-pattern>/sign_up</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Transmissions</servlet-name>
+        <servlet-class>ru.job4j.cartrade.controllers.GetTransmissionsController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Transmissions</servlet-name>
+        <url-pattern>/transmissions</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Bodies</servlet-name>
+        <servlet-class>ru.job4j.cartrade.controllers.GetCarBodiesController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Bodies</servlet-name>
+        <url-pattern>/car_bodies</url-pattern>
     </servlet-mapping>
 </web-app>
