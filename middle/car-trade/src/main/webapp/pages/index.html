@@ -9,89 +9,291 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
 </head>
 <body>
 <div id="main">
-    <div class=" bg-light">
-        <div id="header">
-            <div class="navbar bg-dark navbar-dark text-white">
-                <div id="brand">
-                    LOGO
+    <div id="header">
+        <div class="d-flex flex-row justify-content-end my-2 container">
+            <div  id="user-bar" class="px-3">
+                <small id="greeting">You enter as guest!</small>
+                <button type="button" id="asign_btn" class="btn btn-link btn-sm" data-toggle="modal" data-target="#asign">
+                    Sign In/Sign Up
+                </button>
+                <button type="button" id="add_anno" class="btn btn-info btn-sm" data-toggle="modal"
+                        data-target="#anno_modal" disabled>
+                    Add announcements
+                </button>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark">
+            <div id="company">
+                <a class="navbar-brand" href="">
+                    <span class="display-4">Car Trade</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+    <div id="content" class="row mx-auto container">
+        <div id="search_tab" class="col-md-4">
+            <div id="params" class="m-auto p-3">
+                <form> <!-- Fix input names -->
+                    <div class="form-group input-group-sm">
+                        <label for="car_name">Car name</label>
+                        <input id="car_name" class="form-control" name="car-name" />
+                    </div><!-- add inputs name -->
+                    <div class="form-group input-group-sm">
+                        <h6>Price</h6>
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">min</span>
+                            </div>
+                            <input class="form-control" name="low_price" type="number" min="0" max="" step="1000" value="0" />
+                            <div class="input-group-append input-group-prepend">
+                                <span class="input-group-text">max</span>
+                            </div>
+                            <input class="form-control" name="high_price" type="number" min="" max="5000000" step="1000" value="5000000" />
+                        </div>
+                    </div><!-- add inputs name -->
+                    <div class="form-group">
+                        <h6>Transmission</h6>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Automatic
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Manual
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />CVT
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />DCT
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group"><!-- add inputs name -->
+                        <h6>Car body</h6>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Hatchback
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Sedan
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />MPV
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />SUV
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Crossover
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Coupe
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group"><!-- add inputs name -->
+                        <h6>Engine</h6>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Diesel
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Petrol
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Gas
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Hybrid
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group input-group-sm">
+                        <h6>Engine volume</h6>
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">from</span>
+                            </div>
+                            <input class="form-control" name="low_price" type="number" min="0" max="" step="1000" value="0" />
+                            <div class="input-group-append input-group-prepend">
+                                <span class="input-group-text">to</span>
+                            </div>
+                            <input class="form-control" name="high_price" type="number" min="" max="5000000" step="1000" value="5000000" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-info w-100">Show filtering</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="announces_tab" class="col-md-8 bg-info">
+            <h3>LIST ANNOUNCES</h3>
+            <div id="announces"></div>
+        </div>
+    </div>
+    <div id="footer">
+        FOOTER
+    </div>
+    <div class="modal fade" id="asign">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Authorization</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
-                <div id="user_bar">
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div>
+                        <span id="err_msg" class="err_msg"></span>
+                    </div>
                     <form>
-                        <input type="text" name="login" placeholder="Login" />
-                        <input type="password" name="password" placeholder="Password" />
-                        <input type="button" value="Sign In" />
+                        <div class="form-group">
+                            <input type="text" name="login" class="form-control" placeholder="Enter your login">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="pswd" class="form-control" placeholder="Enter your passwor">
+                        </div>
+                        <button type="button" class="btn btn-success w-100" id="auth_data">Sign In</button>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button id="reg" type="button" class="btn btn-link w-100" data-toggle="modal" data-dismiss="modal"
+                            data-target="#registration">Registration</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="registration">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Registration</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <div>
+                        <span id="err_msg_reg" class="err_msg"></span>
+                    </div>
+                    <form id="reg_form">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="login" placeholder="Enter Your login" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="pswd" placeholder="Enter Your password" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="fname" placeholder="Enter Your first name" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="lname" placeholder="Enter Your last name" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="tel" name="phone" placeholder="Enter Your phone number" />
+                        </div>
+                        <button type="button" class="btn btn-success w-100" id="reg_data">Sign Up</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="auth" type="button" class="btn btn-link w-100" data-toggle="modal" data-dismiss="modal"
+                            data-target="#asign">Authorization</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="anno_modal" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add announce</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <span id="add_err_msg" class="err_msg"></span>
+                    </div>
+                    <form id="add-announce-form">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="car-name" placeholder="Enter car name" />
+                            <span class="small text-center">* Car name includes brand and model</span>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="price" placeholder="Car price" />
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Car body
+                                <select id="car-body" class="form-control" name="car-body"></select>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Transmission type
+                                <select id="trns" class="form-control" name="trns"></select>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                Engine type
+                                <select id="engine-type" class="form-control" name="engine-type">
+                                    <option>Petrol</option>
+                                    <option>Diesel</option>
+                                    <option>Gas</option>
+                                    <option>Hybrid</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="range" min="1" max="6" step="0.1" />
+                        </div>
+                        <input id="create_announce" class="btn btn-success w-100" type="button" value="Add announce" />
                     </form>
                 </div>
             </div>
         </div>
-        <div id="content" class="row">
-            <div id="aside" class="col-md-4 p-4">
-                <h3>Search settings</h3>
-                <form>
-                    <div id="price">
-                        <h5>Price</h5>
-                    </div>
-                    <div id="car_type">
-                        <h5>Car type</h5>
-                        <div class="">
-                            <input type="text" name="car_brand" placeholder="Enter car brand" />
-                        </div>
-                    </div>
-                    <div id="body_type">
-                        <h5>Car body type</h5>
-                    </div>
-                    <div id="engine_type">
-                        <h5>Engine type</h5>
-                        <div class="form-check form-check-inline part-of-width">
-                            <input id="eng1" type="checkbox" name="eng1" value="Automatic" />
-                            <label for="eng1" class="pl-2">Diesel</label>
-                        </div>
-                        <div class="form-check form-check-inline part-of-width">
-                            <input id="eng2" type="checkbox" name="eng2" value="Automatic" />
-                            <label for="eng2" class="pl-2">Petrol</label>
-                        </div>
-                        <div class="form-check form-check-inline part-of-width">
-                            <input id="eng3" type="checkbox" name="eng3" value="Automatic" />
-                            <label for="eng3" class="pl-2">Gas</label>
-                        </div>
-                    </div>
-                    <div id="engine_volume">
-                        <h5>Engine volume</h5>
-                    </div>
-                    <div id="trns_type">
-                        <h5>Transmission type</h5>
-                        <div class="form-check form-check-inline part-of-width">
-                            <input id="trns1" type="checkbox" name="trns1" value="Automatic" />
-                            <label for="trns1">Automatic</label>
-                        </div>
-                        <div class="form-check form-check-inline part-of-width">
-                            <input id="trns2" type="checkbox" name="trns2" value="Manual" />
-                            <label for="trns2">Manual</label>
-                        </div>
-                        <div class="form-check form-check-inline part-of-width">
-                            <input id="trns3" type="checkbox" name="trns3" value="CVT" />
-                            <label for="trns3">CVT</label>
-                        </div>
-                        <div class="form-check form-check-inline part-of-width">
-                            <input id="trns4" type="checkbox" name="trns4" value="DCT" />
-                            <label for="trns4">DCT</label>
-                        </div>
-                    </div>
-                    <input class="btn btn-info" type="button" value="Search"/>
-                </form>
+    </div>
+    <div id="tmps" hidden>
+        <div class="item item_table">
+            <div class="item-photo">
             </div>
-            <div id="announces" class="col-md-8">
-                <button class="btn btn-info">Add announce</button>
-                <div class="list">
-                    list
+            <div class="item_table-description">
+                <h3 class="item_table-header"></h3>
+                <div class="about">
+                    <span class="price"></span>
+                    <div class="specific-params"></div>
                 </div>
+                <div class="owner"></div>
             </div>
-        </div>
-        <div id="footer" class="text-light bg-secondary">
-            Created by Alexandr Bondarev
         </div>
     </div>
 </div>
