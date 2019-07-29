@@ -9,6 +9,7 @@ import ru.job4j.carstore.persistence.criterias.UserByLogin;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -34,6 +35,9 @@ public class SignIn extends HttpServlet {
         } else {
             User result = dbAnswer.get(0);
             result.setPassword(null);
+            HttpSession session = req.getSession();
+            session.setAttribute("ulogin", login);
+            session.setAttribute("upassword", password);
             writer.append(new Gson().toJson(result));
             resp.setStatus(HttpServletResponse.SC_OK);
         }

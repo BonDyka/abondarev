@@ -36,10 +36,25 @@ $(document).ready(function () {
         $('input').val('').removeClass('invalid')
     });
 
+    checkSession();
     fillTransmissionTypes();
     fillCarBodyTypes();
     getAnnouncesList(showList);
 });
+
+function checkSession() {
+    $.ajax({
+        url: 'check_session',
+        complete: function (resp) {
+            console.log(resp);
+            if (resp.status === 200) {
+                console.log(resp.statusText);
+                changeButton();
+                showGreeting(resp.responseJSON.login);
+            }
+        }
+    })
+}
 
 function getAnnouncesList(callback) {
     $.ajax({
@@ -95,16 +110,9 @@ function authorize(formData) {
                 modal.find('input').each(function () {
                     $(this).val('');
                 });
-                $('#asign_btn')
-                    .attr({
-                        'data-toggle' : '',
-                        'data-target' : '',
-                        'id' : 'log_out'
-                    })
-                    .text('Sign Out');
-                $('#add_anno').prop('disabled', false);
                 modal.modal('hide');
-                showGreeting(answer);
+                changeButton();
+                showGreeting(answer.login);
             } else {
                 showErrorMsg(answer);
             }
@@ -112,9 +120,20 @@ function authorize(formData) {
     });
 }
 
+function changeButton() {
+    $('#asign_btn')
+        .attr({
+            'data-toggle' : '',
+            'data-target' : '',
+            'id' : 'log_out'
+        })
+        .text('Sign Out');
+    $('#add_anno').prop('disabled', false);
+}
+
 //Shows greetings for assigned user.
-function showGreeting(user) {
-    $('#greeting').text('You enter as ' + user.login + '!');
+function showGreeting(uLogin) {
+    $('#greeting').text('You enter as ' + uLogin + '!');
 }
 
 //Shows error message for sign in modal.
