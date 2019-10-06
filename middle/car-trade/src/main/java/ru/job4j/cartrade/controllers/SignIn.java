@@ -36,6 +36,7 @@ public class SignIn extends HttpServlet {
             User result = dbAnswer.get(0);
             result.setPassword(null);
             HttpSession session = req.getSession();
+            session.setAttribute("uId", dbAnswer.get(0).getId());
             session.setAttribute("ulogin", login);
             session.setAttribute("upassword", password);
             writer.append(new Gson().toJson(result));

@@ -1,6 +1,7 @@
 <web-app>
     <welcome-file-list>
         <welcome-file>/pages/index.html</welcome-file>
+        <welcome-file>/pages/announce_form.htm</welcome-file>
     </welcome-file-list>
 
     <listener>
@@ -62,4 +63,23 @@
         <servlet-name>Bodies</servlet-name>
         <url-pattern>/car_bodies</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Announce</servlet-name>
+        <servlet-class>ru.job4j.cartrade.controllers.AnnounceController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Announce</servlet-name>
+        <url-pattern>/add_announce</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>ShowAnnounceFilter</filter-name>
+        <filter-class>ru.job4j.cartrade.controllers.filter.AddAnnounceFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>ShowAnnounceFilter</filter-name>
+        <url-pattern>/add_announce</url-pattern>
+    </filter-mapping>
 </web-app>

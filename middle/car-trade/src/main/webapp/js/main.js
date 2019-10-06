@@ -4,11 +4,11 @@ $(document).ready(function () {
     });
 
     $('#auth_data').on('click', function () {
-        var errMsg = $('#err_msg');
+        let errMsg = $('#err_msg');
         errMsg.text('');
-        var form = $(this).parent();
+        let form = $(this).parent();
         if (checkForm(form)) {
-            var data = form.serializeArray();
+            let data = form.serializeArray();
             authorize(data);
         } else {
             errMsg.text('Fields can\'t be empty');
@@ -16,11 +16,11 @@ $(document).ready(function () {
     });
 
     $('#reg_data').on('click', function () {
-        var errMsgReg = $('#err_msg_reg');
+        let errMsgReg = $('#err_msg_reg');
         errMsgReg.text('');
-        var form = $(this).parent();
+        let form = $(this).parent();
         if (checkForm(form)) {
-            var data = form.serializeArray();
+            let data = form.serializeArray();
             registration(data);
         } else {
             errMsgReg.text('Fields can\'t be empty');
@@ -36,19 +36,71 @@ $(document).ready(function () {
         $('input').val('').removeClass('invalid')
     });
 
+    $('#add_anno').on('click', function () {
+        changeLocation();
+    });
+
     checkSession();
-    fillTransmissionTypes();
-    fillCarBodyTypes();
     getAnnouncesList(showList);
+
+    if (document.location.pathname !== '/') {
+        fillTransmissionTypes();
+        fillCarBodyTypes();
+        $('#create_announce').on('click', function () {
+            createAnnounce();
+        });
+    }
 });
+
+function validateNumbers(evt) {
+    let theEvent = evt || window.event;
+    let key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    let regex = /[0-9]/;
+    if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+    }
+}
+
+function createAnnounce() {
+    let form = $('#add-announce-form');
+    if (checkForm(form)) {
+        let fd = new FormData();
+        let textInput = form.serializeArray();
+        $.each(textInput, function (index, textData) {
+            fd.append(textData.name, textData.value);
+        });
+
+        let fileInputs = form.find('input[type=file]');
+        $.each(fileInputs, function (index, file) {
+            fd.append(file.name, file.files[0]);
+        });
+
+        $.ajax({
+            url: '/add_announce',
+            type: 'post',
+            processData: false,
+            contentType: false,
+            data: fd,
+            complete: function (data) {
+                console.log(data);
+            }
+        });
+    } else {
+        $('#err_msg').text("This fields can't be empty");
+    }
+}
+
+function changeLocation() {
+    document.location.replace("/add_announce")
+}
 
 function checkSession() {
     $.ajax({
         url: 'check_session',
         complete: function (resp) {
-            console.log(resp);
             if (resp.status === 200) {
-                console.log(resp.statusText);
                 changeButton();
                 showGreeting(resp.responseJSON.login);
             }
@@ -60,36 +112,39 @@ function getAnnouncesList(callback) {
     $.ajax({
         url: 'announces-list',
         complete: function (answer) {
-            var announces = JSON.parse(answer.responseText);
-            callback(announces);
+            callback(JSON.parse(answer.responseText));
         }
     });
 }
 
 function showList(list) {
-    var card = $('#tmps .item');
-    var announcesTab = $('#announces');
+    let cardTmp = $('#tmps').html();
+    let announcesTab = $('#announces');
+    console.log(cardTmp);
+    console.log(list);
     list.forEach(function (item) {
+        console.log(announcesTab);
+        announcesTab.append(cardTmp);
+        let card = announcesTab.children('.item:last');
         card.attr('id', item.id);
         fillCardInfo(item, card);
-        announcesTab.append(card);
     });
 }
 
 function fillCardInfo(item, card) {
     card.find('.item_table-header').text(item.car.name);
     card.find('.price').text(item.price);
-    var car = item.car;
+    let car = item.car;
     card.find('.specific-params').text(car.engine.volume + ' ' + car.transmission.type
         + ' (' + car.engine.power + 'ps), ' + car.body.type + ', ' + car.engine.type);
     card.find('.owner').html(item.author.fname + ' ' + item.author.lname + '<br /> tel: ' + item.author.phone);
 }
 
 function checkForm(form) {
-    var result = true;
-    var formInputs = form.find('input');
-    for (var index = 0; index < formInputs.length; index++) {
-        var input = $(formInputs[index]);
+    let result = true;
+    let formInputs = form.find('input');
+    for (let index = 0; index < formInputs.length; index++) {
+        let input = $(formInputs[index]);
         if (input.val() === '') {
             input.addClass('invalid');
             result = result && false;
@@ -104,9 +159,9 @@ function authorize(formData) {
         method: 'post',
         data: formData,
         complete: function (resp) {
-            var answer = JSON.parse(resp.responseText);
+            let answer = JSON.parse(resp.responseText);
             if (resp.status === 200) {
-                var modal = $('#asign');
+                let modal = $('#asign');
                 modal.find('input').each(function () {
                     $(this).val('');
                 });
@@ -128,7 +183,7 @@ function changeButton() {
             'id' : 'log_out'
         })
         .text('Sign Out');
-    $('#add_anno').prop('disabled', false);
+    //$('#add_anno').prop('disabled', false);
 }
 
 //Shows greetings for assigned user.
@@ -150,9 +205,9 @@ function registration(data) {
        method: 'post',
        data: data,
        complete: function (resp) {
-           var answer = resp.responseJSON;
+           let answer = resp.responseJSON;
             console.log(answer);
-            var regModal = $('#registration');
+            let regModal = $('#registration');
             if (resp.status === 200) {
                 regModal.find('input').val('');
                 regModal.modal('hide');
@@ -169,8 +224,8 @@ function fillTransmissionTypes() {
     $.ajax({
         url: '/transmissions',
         complete: function (resp) {
-            var list = resp.responseJSON;
-            var html = '';
+            let list = resp.responseJSON;
+            let html = '';
             list.forEach(function (item) {
                 html += '<option value=' + item.id + '>' + item.type + '</option>'
             });
@@ -183,8 +238,8 @@ function fillCarBodyTypes() {
     $.ajax({
         url: '/car_bodies',
         complete: function (resp) {
-            var list = resp.responseJSON;
-            var html = '';
+            let list = resp.responseJSON;
+            let html = '';
             list.forEach(function (item) {
                 html += '<option value=' + item.id + '>' + item.type + '</option>'
             });

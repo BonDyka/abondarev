@@ -20,8 +20,7 @@
                 <button type="button" id="asign_btn" class="btn btn-link btn-sm" data-toggle="modal" data-target="#asign">
                     Sign In/Sign Up
                 </button>
-                <button type="button" id="add_anno" class="btn btn-info btn-sm" data-toggle="modal"
-                        data-target="#anno_modal" disabled>
+                <button type="button" id="add_anno" class="btn btn-info btn-sm">
                     Add announcements
                 </button>
             </div>
@@ -231,57 +230,7 @@
             </div>
         </div>
     </div>
-    <div id="anno_modal" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add announce</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <span id="add_err_msg" class="err_msg"></span>
-                    </div>
-                    <form id="add-announce-form">
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="car-name" placeholder="Enter car name" />
-                            <span class="small text-center">* Car name includes brand and model</span>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" type="text" name="price" placeholder="Car price" />
-                        </div>
-                        <div class="form-group">
-                            <label>
-                                Car body
-                                <select id="car-body" class="form-control" name="car-body"></select>
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label>
-                                Transmission type
-                                <select id="trns" class="form-control" name="trns"></select>
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label>
-                                Engine type
-                                <select id="engine-type" class="form-control" name="engine-type">
-                                    <option>Petrol</option>
-                                    <option>Diesel</option>
-                                    <option>Gas</option>
-                                    <option>Hybrid</option>
-                                </select>
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" type="range" min="1" max="6" step="0.1" />
-                        </div>
-                        <input id="create_announce" class="btn btn-success w-100" type="button" value="Add announce" />
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <div id="tmps" hidden>
         <div class="item item_table">
             <div class="item-photo">
