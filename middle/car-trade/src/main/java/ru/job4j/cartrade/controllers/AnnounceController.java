@@ -47,7 +47,7 @@ public class AnnounceController extends HttpServlet {
                 List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(req);
                 for (FileItem item : items) {
                     if (item.isFormField()) {
-                        if("car-name".equals(item.getFieldName())) {
+                        if ("car-name".equals(item.getFieldName())) {
                             car.setName(item.getString());
                         } else if ("price".equals(item.getFieldName())) {
                             announcement.setPrice(Integer.parseInt(item.getString()));

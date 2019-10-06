@@ -40,15 +40,20 @@ $(document).ready(function () {
         changeLocation();
     });
 
-    checkSession();
-    getAnnouncesList(showList);
+    $('input[type=range]').on('mouseenter mousemove change', function () {
+        $('#volumeVal').text($(this).val());
+    });
 
-    if (document.location.pathname !== '/') {
+    checkSession();
+
+    if (document.location.pathname === '/add_announce') {
         fillTransmissionTypes();
         fillCarBodyTypes();
         $('#create_announce').on('click', function () {
             createAnnounce();
         });
+    } else {
+        getAnnouncesList(showList);
     }
 });
 
@@ -84,7 +89,11 @@ function createAnnounce() {
             contentType: false,
             data: fd,
             complete: function (data) {
-                console.log(data);
+                if (data.status === 200) {
+                    document.location.replace("/");
+                } else {
+                    $('#err_msg').text("Announcement wasn't saved!");
+                }
             }
         });
     } else {
@@ -103,7 +112,7 @@ function checkSession() {
             if (resp.status === 200) {
                 changeButton();
                 showGreeting(resp.responseJSON.login);
-            }
+            } else {}
         }
     })
 }
@@ -120,10 +129,7 @@ function getAnnouncesList(callback) {
 function showList(list) {
     let cardTmp = $('#tmps').html();
     let announcesTab = $('#announces');
-    console.log(cardTmp);
-    console.log(list);
     list.forEach(function (item) {
-        console.log(announcesTab);
         announcesTab.append(cardTmp);
         let card = announcesTab.children('.item:last');
         card.attr('id', item.id);
