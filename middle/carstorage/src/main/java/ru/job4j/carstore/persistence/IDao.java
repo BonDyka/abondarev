@@ -1,5 +1,7 @@
 package ru.job4j.carstore.persistence;
 
+import ru.job4j.carstore.persistence.criterias.Criteria;
+
 import java.util.List;
 
 /**
@@ -43,4 +45,13 @@ public interface IDao<T> {
      *         if database is not empty or empty {@link List} otherwise.
      */
     List<T> readAll();
+
+    /**
+     * Reads a <code>{@link List<T>}</code> of current type objects that's
+     * appropriate for specified as parameter <code>{@link Criteria<T>}</code>
+     *
+     * @param criteria is restriction for selection.
+     * @return <code>{@link List<T>}</code> appropriate to <code>{@link Criteria<T>}</code>
+     */
+    List<T> readByCriteria(Criteria<T> criteria);
 }

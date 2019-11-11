@@ -21,6 +21,9 @@ public class Database {
                     .addAnnotatedClass(ru.job4j.carstore.models.annotated.Engine.class)
                     .addAnnotatedClass(ru.job4j.carstore.models.annotated.CarBody.class)
                     .addAnnotatedClass(ru.job4j.carstore.models.annotated.Car.class)
+                    .addAnnotatedClass(ru.job4j.carstore.models.annotated.User.class)
+                    .addAnnotatedClass(ru.job4j.carstore.models.annotated.Announcement.class)
+                    .addAnnotatedClass(ru.job4j.carstore.models.annotated.Photo.class)
                     .buildSessionFactory();
         } catch (Exception e) {
             LOG.error("Initialization error", e);

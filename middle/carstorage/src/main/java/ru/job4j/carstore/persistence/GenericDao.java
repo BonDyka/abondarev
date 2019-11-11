@@ -4,7 +4,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.job4j.carstore.persistence.criterias.Criteria;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GenericDao<T> implements IDao<T> {
@@ -75,5 +77,26 @@ public class GenericDao<T> implements IDao<T> {
             tx.commit();
             session.close();
         }
+    }
+
+    @Override
+    public List<T> readByCriteria(Criteria<T> criteria) {
+        List<T> result = new ArrayList<>();
+        Session session = Database.INSTANCE.openSession();
+        Transaction tx = session.beginTransaction();
+        try {
+            String sql = String.format(
+                    "SELECT * FROM %ss %s", this.type.getSimpleName(),
+                    criteria.queryRestriction()
+            );
+            result = session.createSQLQuery(sql).addEntity(this.type).list();
+        } catch (Exception e) {
+            LOG.error("Operatin not complete!", e);
+        } finally {
+            tx.commit();
+            session.close();
+        }
+
+        return result;
     }
 }

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Car Trade</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link href="../css/style.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
+</head>
+<body>
+<div id="main">
+    <div id="header">
+        <div class="d-flex flex-row justify-content-end my-2 container">
+            <div  id="user-bar" class="px-3">
+                <small id="greeting">You enter as guest!</small>
+                <button type="button" id="asign_btn" class="btn btn-link btn-sm" data-toggle="modal" data-target="#asign">
+                    Sign In/Sign Up
+                </button>
+                <button type="button" id="add_anno" class="btn btn-info btn-sm">
+                    Add announcements
+                </button>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark">
+            <div id="company">
+                <a class="navbar-brand" href="/">
+                    <span class="display-4">Car Trade</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+    <div id="content" class="row mx-auto container">
+        <div id="search_tab" class="col-md-4">
+            <div id="params" class="m-auto p-3">
+                <form> <!-- Fix input names -->
+                    <div class="form-group input-group-sm">
+                        <label for="car_name">Car name</label>
+                        <input id="car_name" class="form-control" name="car-name" />
+                    </div><!-- add inputs name -->
+                    <div class="form-group input-group-sm">
+                        <h6>Price</h6>
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">min</span>
+                            </div>
+                            <input class="form-control" name="low_price" type="number" min="0" max="" step="1000" value="0" />
+                            <div class="input-group-append input-group-prepend">
+                                <span class="input-group-text">max</span>
+                            </div>
+                            <input class="form-control" name="high_price" type="number" min="" max="5000000" step="1000" value="5000000" />
+                        </div>
+                    </div><!-- add inputs name -->
+                    <div class="form-group">
+                        <h6>Transmission</h6>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Automatic
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Manual
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />CVT
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />DCT
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group"><!-- add inputs name -->
+                        <h6>Car body</h6>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Hatchback
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Sedan
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />MPV
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />SUV
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Crossover
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Coupe
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group"><!-- add inputs name -->
+                        <h6>Engine</h6>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Diesel
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Petrol
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Gas
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" />Hybrid
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group input-group-sm">
+                        <h6>Engine volume</h6>
+                        <div class="input-group input-group-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">from</span>
+                            </div>
+                            <input class="form-control" name="low_price" type="number" min="0" max="" step="1000" value="0" />
+                            <div class="input-group-append input-group-prepend">
+                                <span class="input-group-text">to</span>
+                            </div>
+                            <input class="form-control" name="high_price" type="number" min="" max="5000000" step="1000" value="5000000" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-info w-100">Show filtering</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="announces_tab" class="col-md-8 bg-info">
+            <h3>LIST ANNOUNCES</h3>
+            <div id="announces"></div>
+        </div>
+    </div>
+    <div id="footer">
+        FOOTER
+    </div>
+    <div class="modal fade" id="asign">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Authorization</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div>
+                        <span id="err_msg" class="err_msg"></span>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" name="login" class="form-control" placeholder="Enter your login">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="pswd" class="form-control" placeholder="Enter your passwor">
+                        </div>
+                        <button type="button" class="btn btn-success w-100" id="auth_data">Sign In</button>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button id="reg" type="button" class="btn btn-link w-100" data-toggle="modal" data-dismiss="modal"
+                            data-target="#registration">Registration</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="registration">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Registration</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <div>
+                        <span id="err_msg_reg" class="err_msg"></span>
+                    </div>
+                    <form id="reg_form">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="login" placeholder="Enter Your login" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="pswd" placeholder="Enter Your password" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="fname" placeholder="Enter Your first name" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="lname" placeholder="Enter Your last name" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="tel" name="phone" placeholder="Enter Your phone number" />
+                        </div>
+                        <button type="button" class="btn btn-success w-100" id="reg_data">Sign Up</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="auth" type="button" class="btn btn-link w-100" data-toggle="modal" data-dismiss="modal"
+                            data-target="#asign">Authorization</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tmps" hidden>
+        <div class="item item_table">
+            <div class="item-photo">
+            </div>
+            <div class="item_table-description">
+                <h3 class="item_table-header"></h3>
+                <div class="about">
+                    <span class="price"></span>
+                    <div class="specific-params"></div>
+                </div>
+                <div class="owner"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
