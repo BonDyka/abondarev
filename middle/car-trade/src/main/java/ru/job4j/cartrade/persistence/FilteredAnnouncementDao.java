@@ -19,9 +19,10 @@ public class FilteredAnnouncementDao {
 
     public List<Announcement> filterAnnouncement(Map<String, String[]> filters) {
         List<Announcement> result;
-        Session session = Database.INSTANCE.openSession();
+        Session session = null;
 
-        try (session) {
+        try {
+            session = Database.INSTANCE.openSession();
             Transaction tx = session.beginTransaction();
             Query<Announcement> query = session.createQuery(getFullQueryString(filters.keySet()), Announcement.class);
             setQueryRestrictionParams(query, filters);
@@ -31,15 +32,16 @@ public class FilteredAnnouncementDao {
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             throw e;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
-
         return result;
     }
 
     private void setQueryRestrictionParams(Query query, Map<String, String[]> params) {
-        Iterator<Map.Entry<String, String[]>> it = params.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<String, String[]> entry = it.next();
+        for (Map.Entry<String, String[]> entry : params.entrySet()) {
             if ("engine_type".equals(entry.getKey())) {
                 query.setParameter("types", Arrays.asList(entry.getValue()));
             } else if ("carbodys".equals(entry.getKey())) {
