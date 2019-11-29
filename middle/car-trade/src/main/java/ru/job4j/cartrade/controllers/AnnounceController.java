@@ -102,7 +102,7 @@ public class AnnounceController extends HttpServlet {
         String ext = itemName.substring(itemName.lastIndexOf("."));
         File uploadFile = new File(uploadDir, item.getFieldName() + ext);
         item.write(uploadFile);
-        return uploadFile.getAbsolutePath();
+        return uploadFile.getAbsolutePath().replace(BASE_UPLOAD_DIR, "");
     }
 
     private void saveCar(Car car, CarBody body, Transmission trns, Engine engine) {

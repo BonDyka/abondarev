@@ -54,6 +54,10 @@ $(document).ready(function () {
         });
     } else {
         getAnnouncesList(showList);
+
+        $('#filter').on('click', function () {
+            filterList(showList);
+        });
     }
 });
 
@@ -126,9 +130,22 @@ function getAnnouncesList(callback) {
     });
 }
 
+function filterList(callback) {
+    let fd = $('#filter-form').serializeArray();
+    $.ajax({
+        url: "/filter",
+        data: fd,
+        complete: function (answer) {
+            let list = JSON.parse(answer.responseText);
+            callback(list);
+        }
+    })
+}
+
 function showList(list) {
     let cardTmp = $('#tmps').html();
     let announcesTab = $('#announces');
+    announcesTab.html('');
     list.forEach(function (item) {
         announcesTab.append(cardTmp);
         let card = announcesTab.children('.item:last');
@@ -140,6 +157,7 @@ function showList(list) {
 function fillCardInfo(item, card) {
     card.find('.item_table-header').text(item.car.name);
     card.find('.price').text(item.price);
+    card.find('.item-photo').html('<img src="/photos' + item.photos[0].path + '" class="w-100 h-100" />');
     let car = item.car;
     card.find('.specific-params').text(car.engine.volume + ' ' + car.transmission.type
         + ' (' + car.engine.power + 'ps), ' + car.body.type + ', ' + car.engine.type);

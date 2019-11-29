@@ -20,6 +20,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>ShowPhoto</servlet-name>
+        <servlet-class>ru.job4j.cartrade.controllers.ShowPhotoController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowPhoto</servlet-name>
+        <url-pattern>/photos/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FilteredAnnounceList</servlet-name>
+        <servlet-class>ru.job4j.cartrade.controllers.FilterAnnounceController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FilteredAnnounceList</servlet-name>
+        <url-pattern>/filter</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>SignIn</servlet-name>
         <servlet-class>ru.job4j.cartrade.controllers.SignIn</servlet-class>
     </servlet>
