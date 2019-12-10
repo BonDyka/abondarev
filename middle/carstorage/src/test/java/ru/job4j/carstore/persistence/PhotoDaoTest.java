@@ -1,5 +1,9 @@
 package ru.job4j.carstore.persistence;
 
+import liquibase.Liquibase;
+import liquibase.database.DatabaseFactory;
+import liquibase.database.jvm.JdbcConnection;
+import liquibase.resource.FileSystemResourceAccessor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -7,12 +11,15 @@ import org.junit.Test;
 import ru.job4j.carstore.models.annotated.Announcement;
 import ru.job4j.carstore.models.annotated.Photo;
 
+import java.sql.Connection;
+import java.util.Properties;
+
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class PhotoDaoTest {
     private static final Database DB = Database.INSTANCE;
-    private static final Announcement ANNOUNCEMENT = new GenericDao<>(Announcement.class).readById(1);
+    private static final Announcement ANNOUNCEMENT = new Announcement();
 
     private IDao<Photo> dao;
     private Photo photo;
@@ -26,6 +33,7 @@ public class PhotoDaoTest {
     public void setUp() {
         this.dao = new GenericDao<>(Photo.class);
         this.photo = new Photo("/photos/test/img_001.jpg");
+        ANNOUNCEMENT.setId(1);
         this.photo.setAnnouncement(ANNOUNCEMENT);
     }
 
