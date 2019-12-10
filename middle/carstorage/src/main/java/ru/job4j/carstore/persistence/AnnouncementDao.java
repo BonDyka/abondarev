@@ -1,4 +1,4 @@
-package ru.job4j.cartrade.persistence;
+package ru.job4j.carstore.persistence;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -6,16 +6,19 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.carstore.models.annotated.Announcement;
-import ru.job4j.carstore.persistence.Database;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class FilteredAnnouncementDao {
-    private static final Logger LOG = LoggerFactory.getLogger(FilteredAnnouncementDao.class);
+public class AnnouncementDao extends GenericDao<Announcement> {
+    private static final Logger LOG = LoggerFactory.getLogger(AnnouncementDao.class);
 
     private static final String MAIN_QUERY = "from Announcement an where an.car.name like :car_name"
             + " and (an.price between :price1 and :price2) and (an.car.engine.volume between :volume1 and :volume2)";
+
+    public AnnouncementDao() {
+        super(Announcement.class);
+    }
 
     public List<Announcement> filterAnnouncement(Map<String, String[]> filters) {
         List<Announcement> result;

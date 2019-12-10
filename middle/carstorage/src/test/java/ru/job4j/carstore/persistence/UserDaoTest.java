@@ -2,15 +2,15 @@ package ru.job4j.carstore.persistence;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import ru.job4j.carstore.models.annotated.User;
-import ru.job4j.carstore.persistence.criterias.Criteria;
 import ru.job4j.carstore.persistence.criterias.UserByLogin;
 
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class UserDaoTest {
 
@@ -19,6 +19,11 @@ public class UserDaoTest {
     private IDao<User> dao;
 
     private User user;
+
+    @BeforeClass
+    public static void classSetUp() {
+        MigrationUtil.setMigration();
+    }
 
     @Before
     public void setUp() {

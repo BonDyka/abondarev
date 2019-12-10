@@ -2,12 +2,13 @@ package ru.job4j.carstore.persistence;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import ru.job4j.carstore.models.annotated.Announcement;
 import ru.job4j.carstore.models.annotated.Photo;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class PhotoDaoTest {
     private static final Database DB = Database.INSTANCE;
@@ -15,6 +16,11 @@ public class PhotoDaoTest {
 
     private IDao<Photo> dao;
     private Photo photo;
+
+    @BeforeClass
+    public static void classSetUp() {
+        MigrationUtil.setMigration();
+    }
 
     @Before
     public void setUp() {
