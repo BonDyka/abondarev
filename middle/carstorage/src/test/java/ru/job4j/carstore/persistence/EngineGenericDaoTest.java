@@ -1,6 +1,9 @@
 package ru.job4j.carstore.persistence;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import ru.job4j.carstore.models.annotated.Engine;
 
 import static org.hamcrest.core.Is.is;
@@ -13,6 +16,11 @@ public class EngineGenericDaoTest {
 
     private Engine engine;
     private IDao<Engine> dao;
+
+    @BeforeClass
+    public static void classSetUp() {
+        MigrationUtil.setMigration();
+    }
 
     @Before
     public void setUp() {

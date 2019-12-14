@@ -1,6 +1,9 @@
 package ru.job4j.carstore.persistence;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import ru.job4j.carstore.models.annotated.Car;
 import ru.job4j.carstore.models.annotated.CarBody;
 import ru.job4j.carstore.models.annotated.Engine;
@@ -8,7 +11,7 @@ import ru.job4j.carstore.models.annotated.Transmission;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class CarGenericDaoTest {
     private  static final Database DB = Database.INSTANCE;
@@ -20,7 +23,8 @@ public class CarGenericDaoTest {
     private Car car;
 
     @BeforeClass
-    public static void init() {
+    public static void classSetUp() {
+        MigrationUtil.setMigration();
         ENGINE.setId(1L);
         BODY.setId(1L);
         TRSN.setId(1L);

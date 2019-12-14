@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.carstore.models.annotated.Announcement;
 import ru.job4j.carstore.models.annotated.Photo;
-import ru.job4j.cartrade.persistence.FilteredAnnouncementDao;
+import ru.job4j.carstore.persistence.AnnouncementDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +23,7 @@ public class FilterAnnounceController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, String[]> params = req.getParameterMap();
 
-        List<Announcement> announcements = new FilteredAnnouncementDao().filterAnnouncement(params);
+        List<Announcement> announcements = new AnnouncementDao().filterAnnouncement(params);
         for (Announcement anno : announcements) {
             for (Photo photo : anno.getPhotos()) {
                 photo.setAnnouncement(null);
